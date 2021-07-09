@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Lire</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='..\style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
         <div class="wrapper">
             <nav>
                 <div class="logo">
-                    <img src="/templates/img/logo.svg" alt="">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
                 </div>
             </nav>
         </div>
