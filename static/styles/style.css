@@ -95,6 +95,12 @@ h3 {
     color: #737373;
 }
 
+.book-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
 .sign-up-sing-in {
     margin: 110px 0;
     display: flex;

@@ -31,102 +31,38 @@
                 </div>
                 <!-- sign in and sign up -->
 
+                <!-- new release -->
                 <div class="new-release">
                     <h1>New Release</h1>
                 </div>
+                <!-- new release -->
 
-                <!-- row 1  -->
+                <!-- books -->
                 <div class="books">
-                    <!-- book 1-->
+                {% for row in datas %}
                     <a href="#">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
-                                <img src="https://images-se-ed.com/ws/Storage/Originals/978616/298/9786162985034L.jpg?h=74aa5b9bd3e5acdfa51b78b31540a3f8"
+                                <img src="{{ row.3 }}"
                                     alt="">
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
-                                    <h2>book title</h2>
+                                    <h2>{{ row.0 }}</h2>
                                 </div>
                                 <div class="reader-name">
-                                    <h3>reader name</h3>
+                                    <h3>{{ row.1 }}</h3>
                                 </div>
                                 <div class="time">
-                                    <h3>{{ data }} min</h3>
+                                    <h3>{{ row.2 }} min</h3>
                                 </div>
                             </div>
                         </div>
                     </a>
-                    <!-- book 1-->
-                    <!-- book 2-->
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="https://images-se-ed.com/ws/Storage/Originals/978616/298/9786162985034L.jpg?h=74aa5b9bd3e5acdfa51b78b31540a3f8"
-                                    alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>book title</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>reader name</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>00 min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- book 2-->
-                    <!-- book 3-->
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="https://images-se-ed.com/ws/Storage/Originals/978616/298/9786162985034L.jpg?h=74aa5b9bd3e5acdfa51b78b31540a3f8"
-                                    alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>book title</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>reader name</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>00 min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- book 2-->
-                    <!-- book 3-->
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="https://images-se-ed.com/ws/Storage/Originals/978616/298/9786162985034L.jpg?h=74aa5b9bd3e5acdfa51b78b31540a3f8"
-                                    alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>book title</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>reader name</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>00 min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- book 3-->
-
+                {% endfor %}
                 </div>
+                <!-- books -->
                 
             </header>
         </div>

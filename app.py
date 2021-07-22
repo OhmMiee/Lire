@@ -11,12 +11,15 @@ conn = pymysql.connect( host='localhost',
 
 @app.route('/')
 def Home():
-   time = "5.00"
-   return render_template('index.html', data=time)
+   with conn:
+      cur = conn.cursor()
+      cur.execute('select book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books')
+      rows = cur.fetchall()
+      return render_template('index.html', datas=rows)
 
 @app.route('/audiobook')
 def audiobook_page():
    return "Hi"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
