@@ -1,0 +1,43 @@
+body{
+
+    background-color:rgba(230, 230, 230, 0.808);
+}
+
+header{
+    height: 600px;
+    border: 1px solid rgb(248, 248, 248);
+    background-image: url('images2/Desktop\ -\ 1\ \(1\).png');
+    width: 1260px;
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+    margin-top: 5rem;
+}
+
+header > h1{
+    width: 624px;
+    margin-left: 15rem;
+    margin-top: 6rem;
+    color:rgba(39, 38, 38, 0.836);
+    font-family: "Lucida Console", "Courier New", monospace;
+
+}
+
+header > form {
+    
+    width: 624px;
+    margin-top: 3rem;
+    margin-left: 8rem;
+    line-height: 1.9;
+    font-family: "Lucida Console", "Courier New", monospace;
+    
+    
+}
+header > form > input {
+    background-color: rgb(197, 197, 197);
+    padding: .5rem 7rem;
+    
+}
+header > form > input:focus {
+    background-color: rgb(218, 220, 221);
+}
