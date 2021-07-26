@@ -32,20 +32,18 @@
                 <!-- sign in and sign up -->
 
                 <!-- new release -->
-                <div class="new-release">
+                <div class="section-title">
                     <h1>New Release</h1>
                 </div>
-                <!-- new release -->
-
                 <!-- books -->
                 <div class="books">
-                {% for row in datas %}
+                    {% for row in datas %}
                     <a href="#">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
                                 <img src="{{ row.3 }}"
-                                    alt="">
+                                alt="">
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
@@ -60,12 +58,89 @@
                             </div>
                         </div>
                     </a>
-                {% endfor %}
+                    {% endfor %}
                 </div>
                 <!-- books -->
+                <!-- new release -->
                 
+                <!-- line 1 -->
+                <div class="line"></div>
+                <!-- line 1 -->
+                
+                <!-- fiction -->
+                <div class="section-title">
+                    <h1>Fiction</h1>
+                </div>
+                <!-- books -->
+                <div class="books">
+                    {% for row in datas %}
+                    <a href="#">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="{{ row.3 }}"
+                                alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.0 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.2 }} min</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <!-- books -->
+                <!-- fiction -->
+
+                <!-- line 2 -->
+                <div class="line"></div>
+                <!-- line 2 -->
+
+                <!-- inspire -->
+                <div class="section-title">
+                    <h1>Inspire</h1>
+                </div>
+                <!-- books -->
+                <div class="books">
+                    {% for row in datas %}
+                    <a href="#">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="{{ row.3 }}"
+                                alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.0 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.2 }} min</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <!-- books -->
+                <!-- inspire -->
             </header>
         </div>
+        <footer>  
+            <div class="wrapper">
+                <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>
+            </div>
+        </footer>
     </div>
 
 </body>
