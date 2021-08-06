@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liré</title>
     <link rel="stylesheet" href="/static/styles/style.css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
 </head>
 
 <body>
-
     <div class="nav-container">
         <div class="wrapper">
             <nav>
@@ -26,9 +27,80 @@
             <header>
                 <!-- sign in and sign up -->
                 <div class="sign-up-sing-in">
-                    <button href="#" class="sign-up">SIGN UP</button>
-                    <button href="#" class="sign-in">SIGN IN</button>
+                    <button class="sign-up" onclick="signUpTogglePopup()">SIGN UP</button>
+                    <button class="sign-in" onclick="signInTogglePopup()">SIGN IN</button>
                 </div>
+
+                <!-- sign up -->
+                <div class="popup" id="popup-1">
+                    <div class="content">
+                        <div class="close-btn" onclick="signUpTogglePopup()">X</div>
+                        <h1>SIGN UP</h1>
+                        <form action="" method="post">
+                            <div class="input-field">
+                                <label for="first-name">First Name</label><br>
+                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="last-name">Last Name</label><br>
+                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="email">Email</label><br>
+                                <input type="email" placeholder="Enter your email address " name="email" id="email" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="password">Password</label><br>
+                                <input type="password" placeholder="Enter your password" name="pass" id="password" required>
+                            </div>
+                            <button type="submit" class="second-button">
+                                submit
+                            </button>
+                        </form>
+                        <p>Already have an account?
+                            <a href="#">Sign In</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- sign up -->
+
+                <!-- sign in -->
+                <div class="popup" id="popup-2">
+                    <div class="content">
+                        <div class="close-btn" onclick="signInTogglePopup()">X</div>
+                        <h1>SIGN IN</h1>
+                        <div class="input-field">
+                            <label for="email">Email</label><br>
+                            <input type="email" placeholder="Enter your email address " name="" id="" class="validate">
+                        </div>
+                        <div class="input-field">
+                            <label for="password">Password</label><br>
+                            <input type="password" placeholder="Enter your password" name="" id="" class="validate">
+                        </div>
+                        <button type="submit" class="second-button">
+                            submit
+                        </button>
+                        <p>Don't have an account?
+                            <a href="#">Sign Up</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- sign in -->
+
+
+                <script>
+
+                    function signUpTogglePopup() {
+                        document.getElementById("popup-1") 
+                        .classList.toggle("active");
+                    }
+
+                    function signInTogglePopup() {
+                        document.getElementById("popup-2") 
+                        .classList.toggle("active");
+                    }
+
+                </script>
                 <!-- sign in and sign up -->
 
                 <!-- new release -->
@@ -142,7 +214,7 @@
             </div>
         </footer>
     </div>
-
 </body>
-
 </html>
+
+
