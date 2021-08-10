@@ -11,20 +11,19 @@
 </head>
 
 <body>
-    <div class="nav-container">
-        <div class="wrapper">
-            <nav>
-                <div class="logo">
-                    <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt=""> -->
-                    <img src="/static/images/logo.svg" alt=""> 
-                </div>
-            </nav>
+    <header>
+        <div class="nav-container">
+            <div class="wrapper">
+                <nav>
+                    <div class="logo">
+                        <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt=""> -->
+                        <img src="/static/images/icon/logo.svg" alt="">
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
-
-    <div class="header-container">
-        <div class="wrapper">
-            <header>
+        <div class="header-container">
+            <div class="wrapper">
                 <!-- sign in and sign up -->
                 <div class="sign-up-sing-in">
                     <button class="sign-up" onclick="signUpTogglePopup()">SIGN UP</button>
@@ -39,19 +38,23 @@
                         <form action="" method="post">
                             <div class="input-field">
                                 <label for="first-name">First Name</label><br>
-                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name" required>
+                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name"
+                                    required>
                             </div>
                             <div class="input-field">
                                 <label for="last-name">Last Name</label><br>
-                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name" required>
+                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name"
+                                    required>
                             </div>
                             <div class="input-field">
                                 <label for="email">Email</label><br>
-                                <input type="email" placeholder="Enter your email address " name="email" id="email" required>
+                                <input type="email" placeholder="Enter your email address " name="email" id="email"
+                                    required>
                             </div>
                             <div class="input-field">
                                 <label for="password">Password</label><br>
-                                <input type="password" placeholder="Enter your password" name="pass" id="password" required>
+                                <input type="password" placeholder="Enter your password" name="pass" id="password"
+                                    required>
                             </div>
                             <button type="submit" class="second-button">
                                 submit
@@ -91,130 +94,143 @@
                 <script>
 
                     function signUpTogglePopup() {
-                        document.getElementById("popup-1") 
-                        .classList.toggle("active");
+                        document.getElementById("popup-1")
+                            .classList.toggle("active");
                     }
 
                     function signInTogglePopup() {
-                        document.getElementById("popup-2") 
-                        .classList.toggle("active");
+                        document.getElementById("popup-2")
+                            .classList.toggle("active");
                     }
 
                 </script>
                 <!-- sign in and sign up -->
-
-                <!-- new release -->
-                <div class="section-title">
-                    <h1>New Release</h1>
-                </div>
-                <!-- books -->
-                <div class="books">
-                    {% for row in datas %}
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="{{ row.3 }}"
-                                alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>{{ row.0 }}</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>{{ row.1 }}</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>{{ row.2 }} min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-                <!-- books -->
-                <!-- new release -->
-                
-                <!-- line 1 -->
-                <div class="line"></div>
-                <!-- line 1 -->
-                
-                <!-- fiction -->
-                <div class="section-title">
-                    <h1>Fiction</h1>
-                </div>
-                <!-- books -->
-                <div class="books">
-                    {% for row in datas %}
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="{{ row.3 }}"
-                                alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>{{ row.0 }}</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>{{ row.1 }}</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>{{ row.2 }} min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-                <!-- books -->
-                <!-- fiction -->
-
-                <!-- line 2 -->
-                <div class="line"></div>
-                <!-- line 2 -->
-
-                <!-- inspire -->
-                <div class="section-title">
-                    <h1>Inspire</h1>
-                </div>
-                <!-- books -->
-                <div class="books">
-                    {% for row in datas %}
-                    <a href="#">
-                        <div class="audiobooks">
-                            <div class="audiobook-container"></div>
-                            <div class="book-cover">
-                                <img src="{{ row.3 }}"
-                                alt="">
-                            </div>
-                            <div class="book-detail">
-                                <div class="book-title">
-                                    <h2>{{ row.0 }}</h2>
-                                </div>
-                                <div class="reader-name">
-                                    <h3>{{ row.1 }}</h3>
-                                </div>
-                                <div class="time">
-                                    <h3>{{ row.2 }} min</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-                <!-- books -->
-                <!-- inspire -->
-            </header>
-        </div>
-        <footer>  
-            <div class="wrapper">
-                <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>
             </div>
-        </footer>
+        </div>
+    </header>
+
+    <section>
+        <div class="wrapper">
+            <!-- new release -->
+            <div class="section-title">
+                <h1>New Release</h1>
+            </div>
+            
+            <!-- books -->
+            <div class="books">
+                {% for row in datas %}
+                <a href="#">
+                    <div class="audiobooks">
+                        <div class="audiobook-container"></div>
+                        <div class="book-cover">
+                            <img src="{{ row.3 }}" alt="">
+                        </div>
+                        <div class="book-detail">
+                            <div class="book-title">
+                                <h2>{{ row.0 }}</h2>
+                            </div>
+                            <div class="reader-name">
+                                <h3>{{ row.1 }}</h3>
+                            </div>
+                            <div class="time">
+                                <h3>{{ row.2 }} min</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <!-- books -->
+            <!-- new release -->
+        </div>
+    </section>
+
+    <!-- line 1 -->
+    <div class="wrapper">
+        <div class="line"></div>
     </div>
+    <!-- line 1 -->
+
+    <section>
+        <div class="wrapper">
+            <!-- fiction -->
+            <div class="section-title">
+                <h1>Fiction</h1>
+            </div>
+            <!-- books -->
+            <div class="books">
+                {% for row in datas %}
+                <a href="#">
+                    <div class="audiobooks">
+                        <div class="audiobook-container"></div>
+                        <div class="book-cover">
+                            <img src="{{ row.3 }}" alt="">
+                        </div>
+                        <div class="book-detail">
+                            <div class="book-title">
+                                <h2>{{ row.0 }}</h2>
+                            </div>
+                            <div class="reader-name">
+                                <h3>{{ row.1 }}</h3>
+                            </div>
+                            <div class="time">
+                                <h3>{{ row.2 }} min</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <!-- books -->
+            <!-- fiction -->
+        </div>
+    </section>
+
+    <!-- line 2 -->
+    <div class="wrapper">
+        <div class="line"></div>
+    </div>
+    <!-- line 2 -->
+
+    <section>
+        <div class="wrapper">
+            <!-- inspire -->
+            <div class="section-title">
+                <h1>Inspire</h1>
+            </div>
+            <!-- books -->
+            <div class="books">
+                {% for row in datas %}
+                <a href="#">
+                    <div class="audiobooks">
+                        <div class="audiobook-container"></div>
+                        <div class="book-cover">
+                            <img src="{{ row.3 }}" alt="">
+                        </div>
+                        <div class="book-detail">
+                            <div class="book-title">
+                                <h2>{{ row.0 }}</h2>
+                            </div>
+                            <div class="reader-name">
+                                <h3>{{ row.1 }}</h3>
+                            </div>
+                            <div class="time">
+                                <h3>{{ row.2 }} min</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <!-- books -->
+            <!-- inspire -->
+        </div>
+    </section>
+    <footer>
+        <div class="wrapper">
+            <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>
+        </div>
+    </footer>
 </body>
+
 </html>
-
-

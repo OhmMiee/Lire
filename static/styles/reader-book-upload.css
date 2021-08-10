@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-    
     box-sizing: border-box;
     margin: 0;
 }
@@ -82,8 +81,38 @@ nav {
     display: flex;
 }
 
+.book-title h1{
+    font-size: 3rem;
+}
 
+.book-author h2{
+    color: #737373;
+    font-size: 2rem;
+}
 
+.book-description p{
+    color: #D3D3D3;
+}
+
+.button {
+    text-align: center;
+
+}
+
+.button button{
+    margin-bottom: 24px;
+    width: 190px;
+    height: 58px;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 2rem;
+    padding: 5px 3px;
+}
+
+.read-button svg {
+}
 /* .button {
     display: flex;
 } */
