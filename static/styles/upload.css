@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+body {
+    background-color:#d6d6d6;
+}
+
+nav {
+    height: 101px ;
+    width: 98px;
+    background-image: url('/static/images/Untitled-2-Recovered.png') ;
+    background-size: cover;
+    margin-top: 4rem;
+    margin-left: 3cm;
+    
+}
+
+h1 {
+    margin-left: 2.4cm;
+    margin-top: 5rem;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+form {
+    margin-left: 3cm;
+    margin-top: 3rem;
+    font-family: 'Roboto', sans-serif;
+
+}
+.container{
+    height: 400px ;
+    width: 900px;
+    background-color: rgb(253, 253, 253);
+    margin-top: -15rem;
+    margin-left: 5cm;
+
+}
+.inputfile {
+    /* visibility: hidden etc. wont work */
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    
+  }
+  .inputfile:focus + label+ img{
+    /* keyboard navigation */
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+  .inputfile + label + img * {
+    pointer-events: none;
+    
+  }
+
+  .images {
+      margin-top: cm;
+      
+  }
+
+  .upload {
+
+      display: flex;
+      width: 500px;
+      margin: auto;
+  }
+  .box {
+      display: flex;
+      justify-content:space-evenly;
+      
+  }
+
+  .mainstory{
+      margin-top:15px;
+      margin-left: 150px;
+  }
+  .mainsubmit {
+    margin-top: 10px;  
+    margin-left: 950px;
+  }
