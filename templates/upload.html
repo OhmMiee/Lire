@@ -16,50 +16,48 @@
         </nav>
         <h1>Category</h1>
         <form action="{{ url_for('insert') }}" method="post">
-            <div class="Category">
-                <input type="radio" name="Category" for="fiction" id="category"> </input><br><br>
-                <input type="radio" name="Category" for="inspire" id="category"></input><br><br>
-                <input type="radio" name="Category" for="general" id="category"></input><br><br>
+            
+            <div class="category">
+                <label>fiction </label>
+                <input type="radio" name="category" value="fiction"></input><br><br>
+                <label>inspire </label>
+                <input type="radio" name="category" value="inspire"></input><br><br>
+                <label>general</label>
+                <input type="radio" name="category" value="general"></input><br><br>
             </div>
             <div class="container">
+
                 <div class="upload">
-
-
-                    <div class="images">
-
-                        <input type="file" name="file" id="imagesfile" class="inputfile">
-                        <label for="file">
+                    <div class="imagefile">
+                        <input type="file" name="imagefile" class="inputfile">
+                        <!-- <label for="file">
                             <img src="/static/images/1.jpg" alt="">
-                        </label>
-
+                        </label> -->
                     </div>
-                    <div class="filebook">
-                        <input type="file" name="file" id="bookfile" class="inputfile">
-                        <label for="file">
-                            <img src="/static/images/file.jpg" alt="">
 
-                        </label>
+                    <div class="bookfile">
+                        <input type="file" name="bookfile" class="inputfile">
+                        <!-- <label for="file">
+                            <img src="/static/images/file.jpg" alt="">
+                        </label> -->
                     </div>
                 </div>
+
                 <div class="box">
                     <div class="name">
                         Name :
-                        <input type="text" id="Bookname">
+                        <input type="text" name="bookname">
                     </div>
-
                     <div class="Author">
                         Author :
-                        <input type="text" id="Authorname">
+                        <input type="text" name="authorname">
                     </div>
                 </div>
                 <div class="mainstory">
-
-                    <div class="Story">
+                    <div class="story">
                         <label for="">Story : </label> 
-                        
-                        <textarea id="Story" name="w3review" rows="4" cols="50">
+                        <textarea name="story" rows="4" cols="50">
                         </textarea>
-                        
                     </div>
                 </div>
             </div>

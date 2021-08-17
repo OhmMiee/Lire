@@ -23,21 +23,21 @@ def audiobook_page():
 
 @app.route('/upload')
 def upload_page():
-   return render_template('/upload')
+   return render_template('upload.html')
 
 @app.route('/insert', methods=['POST'])
 def insert():
-   if request.method=="POST":
+   if request.method == "POST":
       category=request.form['category']
-      imagesfile=request.form['file']
+      imagefile=request.form['imagefile']
       bookfile=request.form['bookfile']
-      Bookname=request.form['Bookname']
-      Authorname=request.form['Authorname']
+      bookname=request.form['bookname']
+      authorname=request.form['authorname']
       story=request.form['story']
      
       with conn.cursor() as cursor:
-         sql="insert into 'books'('category','book_img','book_file','book_name','Author','story') values(%s,%s,%s,%s,%s,%s)"
-         cursor.execute(sql,(category, imagesfile,  bookfile,Bookname , Authorname,story))
+         sql="insert into 'books'('book_img','book_file','book_title','author','category','story') values(%s,%s,%s,%s,%s,%s)"
+         cursor.execute(sql,(bookname, imagefile, bookfile , authorname, category, story))
          conn.commit()
       return redirect(url_for('upload'))
 

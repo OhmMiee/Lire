@@ -34,25 +34,25 @@ form {
     margin-left: 5cm;
 
 }
-.inputfile {
-    /* visibility: hidden etc. wont work */
+/* .inputfile {
+
     width: 0.1px;
     height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
+    opacity: 1;
+    overflow: visible;
     position: absolute;
     z-index: -1;
     
   }
   .inputfile:focus + label+ img{
-    /* keyboard navigation */
+  
     outline: 1px dotted #000;
     outline: -webkit-focus-ring-color auto 5px;
   }
   .inputfile + label + img * {
     pointer-events: none;
     
-  }
+  } */
 
   .images {
       margin-top: cm;
