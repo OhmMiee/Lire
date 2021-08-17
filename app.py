@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, flash, session, logging
-# from flask_mysqldb import MySQL
+import pymysql
+from base64 import encode
+import speech_recognition as sr
+
+
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
-import pymysql
 
 app = Flask(__name__)
 
@@ -62,6 +65,45 @@ def signUp():
 @app.route('/book-unknown')
 def audiobook_page():
    return render_template('book-upload.html')
+
+@app.route('/upload', methods=['POST'])
+def upload():
+
+   # return file.filename
+
+   transcript = ""
+    
+   if request.method == "POST":
+      print("form data received")
+
+      if "inputfile" not in request.files:
+         return redirect(request.url)
+
+      file = request.files["inputfile"]
+      if file.filename == "":
+         return redirect(request.url)
+
+      if file:
+         recognizer = sr.Recognizer()
+         audioFile = sr.AudioFile(file)
+         with audioFile as source:
+            data = recognizer.record(source)
+         transcript = recognizer.recognize_google(data, language="th-TH", key=None)
+         with conn:
+            cur = conn.cursor()
+#             UPDATE table_name
+# SET column1 = value1, column2 = value2, ...
+# WHERE condition;
+            sql = "update chapter set textValue = %s where chapterID = 1"
+            cur.execute(sql,(transcript))
+            conn.commit()
+            return "yes"
+
+
+   # return render_template("book-upload.html", transcript=transcript)
+   return transcript
+
+
 
 if __name__ == "__main__":
     app.run(debug=True) 
