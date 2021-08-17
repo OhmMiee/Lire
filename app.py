@@ -23,6 +23,7 @@ def audiobook_page():
 
 @app.route('/upload')
 def upload_page():
+   return render_template('/upload')
 
 @app.route('/insert', methods=['POST'])
 def insert():
