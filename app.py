@@ -94,7 +94,7 @@ def upload():
 #             UPDATE table_name
 # SET column1 = value1, column2 = value2, ...
 # WHERE condition;
-            sql = "update chapter set textValue = %s where chapterID = 1"
+            sql = "update chapter set google_value = %s where chapter_id = 0"
             cur.execute(sql,(transcript))
             conn.commit()
             return "yes"
