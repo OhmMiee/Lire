@@ -17,25 +17,28 @@
         <h1>Category</h1>
         <form action="{{ url_for('insert') }}" method="post">
             <div class="category">
-                <input type="radio" name="category" for="fiction"> </input><br><br>
-                <input type="radio" name="category" for="inspire"></input><br><br>
-                <input type="radio" name="category" for="general"></input><br><br>
+                <input type="radio" name="category" for="fiction"></input>
+                <label for="fiction">Fiction</label><br>
+                <input type="radio" name="category" for="inspire"></input>
+                <label for="inspire">Inspire</label><br>
+                <input type="radio" name="category" for="general"></input>
+                <label for="general">General</label><br>
             </div>
             <div class="container">
 
                 <div class="upload">
                     <div class="imagefile">
                         <input type="file" name="imagefile" class="inputfile">
-                        <label for="file">
+                        <!-- <label for="file">
                             <img src="/static/images/1.jpg" alt="">
-                        </label>
+                        </label> -->
                     </div>
 
                     <div class="bookfile">
                         <input type="file" name="bookfile" class="inputfile">
-                        <label for="file">
+                        <!-- <label for="file">
                             <img src="/static/images/file.jpg" alt="">
-                        </label>
+                        </label> -->
                     </div>
                 </div>
 
