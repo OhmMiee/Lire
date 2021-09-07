@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    background-color: #161616;
+}
+
+
+
+.wrapper {
+    position: relative;
+    max-width: 1058px;
+    margin: 0 auto;
+    transition: 0.5s;
+}
+
+.wrapper#blur.active {
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Nav */
+nav {
+    display: flex;
+    align-items: center;
+    height: 94px; 
+}
+
+.list {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.logo .logo-svg {
+    height: 50px;
+    margin-right: auto;
+}
+
+.logo .cls-1 {
+    fill: #F2F2F2;
+    fill-rule: evenodd;
+  }
+
+
+.book-container {
+    margin-top: 150px;
+    width: 1060px;
+    height: 508px;
+    background: #000000;
+    box-shadow: 0px 4px 41px rgba(255, 255, 255, 0.09);
+    border-radius: 30px;
+    display: flex;
+}
+
+.book-cover {
+    margin: 0 50px;
+    /* position: relative; */
+    /* margin: 60px; */
+    width: 368px;
+    height: 541px;
+}
+
+.book-cover img {
+    top: 150px;
+    position: absolute;
+    background: #C4C4C4;
+    border-radius: 25px 25px 10px 10px;
+    width: 368px;
+
+}
+
+.right-side {
+    margin: auto 0;
+    width: 540px;
+    height: 400px;
+    /* background-color: red; */
+}
+
+
+.book-title h1{
+    font-size: 3rem;
+}
+
+.book-author h2{
+    color: #737373;
+    font-size: 2rem;
+}
+
+.book-description p{
+    word-wrap: break-word;
+    color: #D3D3D3;
+    /* background-color: rosybrown; */
+    padding-right: 10px;
+}
+
+
+.button button{
+    margin-bottom: 24px;
+    width: 190px;
+    height: 58px;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 2rem;
+    padding: 5px 3px;
+}
+
+.inputfile {
+    /* visibility: hidden etc. wont work */
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile:focus + label {
+    /* keyboard navigation */
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+    pointer-events: none;
+  }
+
+label {
+    color: #000000;
+    font-size: 24px;
+    font-style: normal;
+    padding: .5rem 1rem;
+    background: #F2F2F2;
+    box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.15);
+    border-radius: 23px;
+}
+
+
+#popUp {
+    height: 550px;
+    background: #2C2C2C;
+    width: 879px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 22px;
+    padding: 50px;
+    visibility:hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#popUp.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+
+.popUp .close-btn {
+    position: relative;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.input-field {
+    margin: 20% 0;
+    text-align: center;
+}
+
+.input-field button {
+    margin-top: 20px;
+    background: #000000;
+    border-radius: 11px;
+    color: #fff;
+    width: 151px;
+    height: 51px;
+    box-shadow: 0px 4px 23px 3px rgba(255, 255, 255, 0.09);
+    border-radius: 11px;
+    font-weight: 500;
+    font-size: 24px;
+    text-transform: uppercase;
+    border: none;
+}

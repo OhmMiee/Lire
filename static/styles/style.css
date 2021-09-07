@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     
     box-sizing: border-box;
@@ -7,6 +9,20 @@
 body {
     font-family: "Roboto", sans-serif;
     background-color: #F2F2F2;
+}
+
+body::after .popup.active{
+    position:absolute;
+    top : 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    content:"";
+    pointer-events: none;
+    z-index:100;
+    opacity: .5
+
 }
 
 .wrapper {
@@ -26,7 +42,7 @@ nav {
 } */
 
 .logo img {
-    height: 50px;
+    height: 3.125rem;
 }
 
 
@@ -38,7 +54,7 @@ nav {
     height: 365px;
   }
   
-  .audiobook-container {
+.audiobook-container {
     position: absolute;
     bottom: 0px;
     width: 227px;
@@ -48,7 +64,7 @@ nav {
     border-radius: 30px;
   }
   
-  .book-cover {
+.book-cover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,9 +77,8 @@ nav {
 .book-cover img {
     width: 100%;
     height:100%;
-    border-radius: 17px 17px 0px 0px;
+    border-radius: 17px 17px 5px 5px;
     box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.3);
-    
 }
   
 .play-icon {
@@ -92,6 +107,7 @@ a {
   }
 
 h3 {
+
     color: #737373;
 }
 
@@ -141,12 +157,89 @@ h3 {
     background-color: #000000;
 }
 
-.new-release {
+.popup .content {
+    position: absolute;
+    background-color: #737373;
+    width: 700px;
+    height: 540px;
+    top: 50%;
+    left: 50%;
+    background: #FFFFFF;
+    box-shadow: 0px 14px 46px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    transform: translate(-50%, -150%) scale(0);
+    z-index: 1;
+}
+
+
+
+.popup .close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 28px
+}
+
+.popup.active .content {
+    transition: all 300ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.content h1 {
+    color: #000000;
+    font-size: 36px;
+    margin: 30px 0 20px 0;
+}
+
+.input-field input{
+    color: #FFFFFF;
+    margin: 10px 0;
+    width: 307px;
+    height: 33px;
+    border: none;
+    background: #A3A3A3;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.input-field input:focus{
+    background-color: #EBEBEB;
+    color: #000000;
+}
+
+.content button {
+    font-size: 30px;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    background: #000000;
+    color: #FFFFFF;
+    border: 3px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 11px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 20px 0 ;
+    cursor: pointer;
+}
+
+.content p {
+    color: #A3A3A3;
+    font-size: 18px;
+}
+
+.content a {
+    text-decoration: underline;
+}
+
+.section-title {
     margin-bottom: 110px;
     text-align: center;
 }
 
-.new-release h1 {
+.section-title h1 {
     font-size: 48px;
     color: #3F3F3F;
 }
@@ -154,4 +247,17 @@ h3 {
 .books {
     display: flex;
     justify-content: space-between;
+}
+
+.line {
+    margin: 90px 0;
+    width: 1060px;
+    border: 1px solid #C4C4C4;
+    border-radius: 100px;
+}
+
+footer {
+    margin-top: 90px;
+    height: 258px;
+    background-color: #000000;
 }
