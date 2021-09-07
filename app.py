@@ -10,7 +10,7 @@ app = Flask(__name__)
 conn = pymysql.connect( host='localhost',
                         user='root',
                         password='',
-                        database='testingdb',)
+                        database='audiobooks',)
 
 UPLOAD_FOLDER = 'static/uploads/'
  
