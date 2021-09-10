@@ -4,15 +4,15 @@ from werkzeug.utils import secure_filename
 import os
 import pymysql.cursors
 from base64 import encode
-import speech_recognition as sr
+# import speech_recognition as sr
 
 
-from pythainlp.word_vector import sentence_vectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+# from pythainlp.word_vector import sentence_vectorizer
+# from sklearn.metrics.pairwise import cosine_similarity
 
 
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators
-from passlib.hash import sha256_crypt
+# from wtforms import Form, StringField, TextAreaField, PasswordField, validators
+# from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
@@ -23,18 +23,9 @@ connection = pymysql.connect( host='localhost',
                               database='audiobooks',
                               charset='utf8')
 
-UPLOAD_FOLDER = 'static/uploads/'
- 
-app.secret_key = "secret key"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
- 
-def allowed_file(filename):
-   return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS  
 
 with connection:
+
    @app.route('/')
    def Home():
       with connection.cursor() as cur:
@@ -50,55 +41,46 @@ with connection:
 
    @app.route('/upload')
    def upload_page():
-      return render_template('upload.html');
+      return render_template('admin-addbook.html')
 
-   # @app.route('/insert', methods=['POST'])
-   # def insert():
-   #    if request.method == "POST":
-         
+   @app.route('/add-book', methods=['POST'])
+   def addBook():
+      
+      if request.method == "POST":
 
-   #       if 'imagefile' not in request.files:
-   #          flash('No file part')
-   #          return redirect(request.url)
-
-   #       imagefile = request.files['imagefile']
-   #       now = datetime.now()
-
-   #       if imagefile.filename == '':
-   #          flash('No image selected for uploading')
-   #          return redirect(request.url)
-         
-
-   #       if imagefile and allowed_file(imagefile.filename):
-   #          filename = secure_filename(imagefile.filename)
-   #          imagefile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-         
-   #          #print('upload_image filename: ' + filename)
-   #          flash('Image successfully uploaded and displayed below')
-   #          return filename
-
-   #       category=request.form['category']
-   #       bookname=request.form['bookname']
-   #       authorname=request.form['authorname']
-   #       story=request.form['story']
-   #       with connection.cursor() as cursor:
-   #          sql="insert into 'books'('category','book_img','book_file','book_name','Author','story') values(%s,%s,%s,%s,%s,%s)"
-   #          cursor.execute(sql,(category, imagefile, bookfile, bookname , authorname, story))
-   #          connection.commit()
+         category = request.form['category']
+         title = request.form['title']
+         author = request.form['author']
+         description = request.form['description']
+         content = request.form['content']
+            
+         with connection.cursor() as cursor:
+            # BEGIN;
+            # INSERT INTO users (username, password)
+            # VALUES('test', 'test');
+            # INSERT INTO profiles (userid, bio, homepage) 
+            # VALUES(LAST_INSERT_ID(),'Hello world!', 'http://www.stackoverflow.com');
+            # COMMIT;
+            sql="insert into `books` (`book_title`, `author`, `category_id`) values(%s,%s,%s)"
+            cursor.execute(sql,(title, author, category))
+            connection.commit()
+         return "yes"
+         # return category + "<br>" + title + "<br>" + author + "<br>" + description + "<br>" + content
+        
 
    @app.route('/sign-up')
    def signUpPage():
       return render_template('signUp.html')
 
-   class signUpForm(Form):
-      first_name = StringField('First Name', [validators.Length(min=1, max=50)])
-      last_name  = StringField('Last Name', [validators.Length(min=1, max=50)])
-      email  = StringField('Email', [validators.Length(min=6, max=50)])
-      password  = PasswordField('Password', [
-         validators.DataRequired(),
-         validators.EqualTo('confirm', message='Passwords do not match')
-      ])
-      confirm = PasswordField('Confirm Password')
+   # class signUpForm(Form):
+   #    first_name = StringField('First Name', [validators.Length(min=1, max=50)])
+   #    last_name  = StringField('Last Name', [validators.Length(min=1, max=50)])
+   #    email  = StringField('Email', [validators.Length(min=6, max=50)])
+   #    password  = PasswordField('Password', [
+   #       validators.DataRequired(),
+   #       validators.EqualTo('confirm', message='Passwords do not match')
+   #    ])
+   #    confirm = PasswordField('Confirm Password')
 
    @app.route('/ign-up', methods=['POST'])
    def signUp():
