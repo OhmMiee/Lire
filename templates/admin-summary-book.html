@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+        </nav>
+        <div class="book">
+            <!-- title -->
+            <h1>{{ book.0 }}</h1>
+            <!-- author -->
+            <h2>{{ book.1 }}</h2>
+            <!-- category -->
+            <h3>{{ book.2 }}</h3>
+            <p>{{ book.3 }}</p>
+
+            <img src="/static/uploads/{{ book.4 }}" width="300" height="auto">
+        </div>
+
+        <a href="insert_content">Add Chapter</a>
+
+    </header>
+</body>
+
+</html>

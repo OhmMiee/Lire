@@ -14,7 +14,16 @@ from base64 import encode
 # from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 # from passlib.hash import sha256_crypt
 
+UPLOAD_FOLDER = 'static/uploads/'
+
 app = Flask(__name__)
+
+app.secret_key = "secret key"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 # database
 connection = pymysql.connect( host='localhost',
@@ -23,6 +32,8 @@ connection = pymysql.connect( host='localhost',
                               database='audiobooks',
                               charset='utf8')
 
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 with connection:
 
@@ -39,34 +50,79 @@ with connection:
    def admin_page():
       return render_template('admin.html')
 
-   @app.route('/upload')
-   def upload_page():
-      return render_template('admin-addbook.html')
+   @app.route('/admin-homepage')
+   def admin_homepage():
+      with connection.cursor() as cur:
+         cur.execute('select book_id, book_title, author from books')
+         rows = cur.fetchall()
+         return render_template('admin-homepage.html', datas=rows)
+
+   @app.route('/summary/<string:id>')
+   def summary_page(id):
+      with connection.cursor() as cur:
+         # cur.execute("select book_title, author, category, book_img from books where book_id = %s inner join chapter ON books.chapter_id = chapter.chapter_id" , [id])
+         cur.execute("select book_title, author, category_name, description, book_img from books inner join category ON books.category_id = category.category_id where book_id = %s", [id])
+         result = cur.fetchone()
+         return render_template('admin-summary-book.html', book=result)
+         # return 
+
+   @app.route('/summary/insert_content')
+   def add_content_page():
+      return render_template('admin-add-content.html')
+
+   @app.route('/insert-book')
+   def insert_book_page():
+      return render_template('admin-add-book.html')
 
    @app.route('/add-book', methods=['POST'])
    def addBook():
-      
       if request.method == "POST":
 
          category = request.form['category']
          title = request.form['title']
          author = request.form['author']
          description = request.form['description']
-         content = request.form['content']
+         # content = request.form['content']
             
-         with connection.cursor() as cursor:
-            # BEGIN;
-            # INSERT INTO users (username, password)
-            # VALUES('test', 'test');
-            # INSERT INTO profiles (userid, bio, homepage) 
-            # VALUES(LAST_INSERT_ID(),'Hello world!', 'http://www.stackoverflow.com');
-            # COMMIT;
-            sql="insert into `books` (`book_title`, `author`, `category_id`) values(%s,%s,%s)"
-            cursor.execute(sql,(title, author, category))
-            connection.commit()
-         return "yes"
-         # return category + "<br>" + title + "<br>" + author + "<br>" + description + "<br>" + content
+         if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+         file = request.files['file']
+         now = datetime.now()
+         if file.filename == '':
+            flash('No image selected for uploading')
+            return redirect(request.url)
+         if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #print('upload_image filename: ' + filename)
+            flash('Image successfully uploaded and displayed below')
+            # return render_template('admin-add-book.html', filename=filename)
+         else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')
+            return redirect(request.url)
         
+         with connection.cursor() as cursor:
+            sql="insert into `books` (`book_title`, `author`, `book_img`, `description` , `category_id`) values(%s,%s,%s,%s,%s)"
+            cursor.execute(sql,(title, author, filename, description, category))
+            connection.commit()
+         # return redirect('insert-content')
+         return redirect('admin-homepage')
+        
+   # @app.route('/insert-content')
+   # def insert_content_page():
+   #    return render_template('admin-add-content.html')
+
+   @app.route('/summary/add-content', methods=['POST'])
+   def addContent():
+      if request.method == "POST":
+         chapter = request.form['chapter']
+         content = request.form['content']
+         with connection.cursor() as cursor:
+            sql = "insert into `chapter` (`chapter`, `content`) values(%s,%s)"
+            cursor.execute(sql, (chapter, content))
+            connection.commit()
+            return chapter + ' ' + content
 
    @app.route('/sign-up')
    def signUpPage():

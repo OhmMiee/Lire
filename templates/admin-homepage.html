@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+        </nav>
+        <a href="insert-book">Add book</a>
+        <h1>All Books</h1>
+        <div class="book">
+            <table width="200" border="1" class="table">
+                <tr>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>&nbsp;</td>
+                </tr>
+                {% for row in datas%}
+                <tr>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.2 }}</td>
+                    <td>
+                        <a href="summary/{{ row.0 }}">view more</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <!-- <button>Next</button> -->
+    </header>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Chapter</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+        </nav>
+        <h1>Add Chapter</h1>
+        <div class="book">
+            <form action="add-content" method="post" enctype="multipart/form-data">
+                <br>
+                <label for="chapter">Chapter</label><br>
+                <input type="number" name="chapter" id="chapter" min="1" placeholder="enter number of chapter"><br>
+
+                <div class="content">
+                    <label for="content">Content</label><br>
+                    <textarea name="content" id="" cols="30" rows="10"></textarea>
+                </div>
+
+                <!-- <div class="image">
+                    <input type="file" name="imagefile" required>
+                </div> -->
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <!-- <button>Next</button> -->
+    </header>
+</body>
+</html>
