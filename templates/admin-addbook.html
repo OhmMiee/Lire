@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+        </nav>
+        <h1>Add book</h1>
+        <ul>
+            <li>Category</li>
+            <li>Information</li>
+            <li>Upload</li>       
+        </ul>
+        <div class="book">
+            <form action="add-book" method="post" enctype="multipart/form-data">
+
+                <div class="choice">
+                    <input type="radio" name="category" id="fiction" value="1">
+                    <label>Fiction</label>
+                    
+                    <input type="radio" name="category" id="inspire" value="2">
+                    <label>Inspire</label>
+                    
+                    <input type="radio" name="category" id="general" value="3">
+                    <label>General</label>
+                </div>
+
+                <div class="information">
+                    <label for="title">Title</label><br>
+                    <input type="text" name="title"><br>
+                    <label for="author">Author</label><br>
+                    <input type="text" name="author"><br>
+                    <label for="description">Description</label><br>
+                    <textarea name="description" id="" cols="30" rows="10"></textarea><br>
+                    <label for="content">Content</label><br>
+                    <textarea name="content" id="" cols="30" rows="10"></textarea>
+                </div>
+
+                <!-- <div class="image">
+                    <input type="file" name="imagefile" required>
+                </div> -->
+
+                <input type="submit" value="Submit">
+
+            </form>
+        </div>
+        <!-- <button>Next</button> -->
+    </header>
+</body>
+</html>
