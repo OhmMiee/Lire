@@ -46,12 +46,18 @@ nav {
 }
 
 
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
+}
 
 .audiobooks {
     position: relative;
     width: 227px;
     height: 365px;
+    margin: 0 0px 50px 00px;
   }
   
 .audiobook-container {
@@ -244,10 +250,7 @@ h3 {
     color: #3F3F3F;
 }
 
-.books {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .line {
     margin: 90px 0;

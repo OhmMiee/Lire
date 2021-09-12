@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liré</title>
     <link rel="stylesheet" href="/static/styles/style.css">
+    <!-- CSS only -->
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
 </head>
 
@@ -117,27 +118,27 @@
             </div>
             
             <!-- books -->
-            <div class="books">
+            <div class="books" >
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    <a href="audiobook-info/{{ row.0 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.1 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.2 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.3 }} min</h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
                 {% endfor %}
             </div>
             <!-- books -->
@@ -160,25 +161,27 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    {% if row.5 == 1 %}
+                    <a href="audiobook-info/{{ row.0 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.1 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.2 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.3 }} min</h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <!-- books -->
@@ -201,31 +204,77 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    {% if row.5 == 2  %}
+                    <a href="audiobook-info/{{ row.0 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.1 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.2 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.3 }} min</h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <!-- books -->
             <!-- inspire -->
         </div>
     </section>
+
+    <!-- line 3 -->
+    <div class="wrapper">
+        <div class="line"></div>
+    </div>
+    <!-- line 3 -->
+
+    <section>
+        <div class="wrapper">
+            <!-- general -->
+            <div class="section-title">
+                <h1>General</h1>
+            </div>
+            <!-- books -->
+            <div class="books">
+                {% for row in datas %}
+                    {% if row.5 == 3 %}
+                    <a href="audiobook-info/{{ row.0 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h2>{{ row.1 }}</h2>
+                                </div>
+                                <div class="reader-name">
+                                    <h3>{{ row.2 }}</h3>
+                                </div>
+                                <div class="time">
+                                    <h3>{{ row.3 }} min</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- books -->
+            <!-- general -->
+        </div>
+    </section>
+
     <footer>
         <div class="wrapper">
             <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>

@@ -40,10 +40,20 @@ with connection:
    @app.route('/')
    def Home():
       with connection.cursor() as cur:
-         cur.execute('select book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books')
+         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books')
          rows = cur.fetchall()
          return render_template('index.html', datas=rows)
             # return str(rows)
+   
+   @app.route('/audiobook-info/<string:id>')
+   def audiobook_info(id):
+      with connection.cursor() as cur:
+         sql = 'select book_id, book_title, author, book_img, description, category_id from books where book_id = %s'
+         cur.execute(sql, [id])
+         row = cur.fetchone()
+         return render_template('audiobook-info.html', data = row)
+         # return row[0]
+      # return id
 
 
    @app.route('/admin')
