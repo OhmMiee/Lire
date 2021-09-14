@@ -18,94 +18,17 @@
                 <nav>
                     <div class="logo">
                         <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt=""> -->
-                        <img src="/static/images/icon/logo.svg" alt="">
+                        <img src="/static/images/icon/logo.svg" alt="logo">
+                    </div>
+                    <div class="reader">
+                        <a href="sign-up" aria-details=""><button>Reader</button></a>
                     </div>
                 </nav>
             </div>
         </div>
-        <div class="header-container">
+        <div class="headline-container">
             <div class="wrapper">
-                <!-- sign in and sign up -->
-                <div class="sign-up-sing-in">
-                    <button class="sign-up" onclick="signUpTogglePopup()">SIGN UP</button>
-                    <button class="sign-in" onclick="signInTogglePopup()">SIGN IN</button>
-                </div>
-
-                <!-- sign up -->
-                <div class="popup" id="popup-1">
-                    <div class="content">
-                        <div class="close-btn" onclick="signUpTogglePopup()">X</div>
-                        <h1>SIGN UP</h1>
-                        <form action="" method="post">
-                            <div class="input-field">
-                                <label for="first-name">First Name</label><br>
-                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="last-name">Last Name</label><br>
-                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="email">Email</label><br>
-                                <input type="email" placeholder="Enter your email address " name="email" id="email"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="password">Password</label><br>
-                                <input type="password" placeholder="Enter your password" name="pass" id="password"
-                                    required>
-                            </div>
-                            <button type="submit" class="second-button">
-                                submit
-                            </button>
-                        </form>
-                        <p>Already have an account?
-                            <a href="#">Sign In</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign up -->
-
-                <!-- sign in -->
-                <div class="popup" id="popup-2">
-                    <div class="content">
-                        <div class="close-btn" onclick="signInTogglePopup()">X</div>
-                        <h1>SIGN IN</h1>
-                        <div class="input-field">
-                            <label for="email">Email</label><br>
-                            <input type="email" placeholder="Enter your email address " name="" id="" class="validate">
-                        </div>
-                        <div class="input-field">
-                            <label for="password">Password</label><br>
-                            <input type="password" placeholder="Enter your password" name="" id="" class="validate">
-                        </div>
-                        <button type="submit" class="second-button">
-                            submit
-                        </button>
-                        <p>Don't have an account?
-                            <a href="#">Sign Up</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign in -->
-
-
-                <script>
-
-                    function signUpTogglePopup() {
-                        document.getElementById("popup-1")
-                            .classList.toggle("active");
-                    }
-
-                    function signInTogglePopup() {
-                        document.getElementById("popup-2")
-                            .classList.toggle("active");
-                    }
-
-                </script>
-                <!-- sign in and sign up -->
+                <h1>Enjoy your Audiobooks</h1>
             </div>
         </div>
     </header>
@@ -114,13 +37,13 @@
         <div class="wrapper">
             <!-- new release -->
             <div class="section-title">
-                <h1>New Release</h1>
+                <h2>New Release</h2>
             </div>
             
             <!-- books -->
             <div class="books" >
                 {% for row in datas %}
-                    <a href="audiobook-info/{{ row.0 }}">
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}"> 
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
@@ -128,13 +51,13 @@
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
-                                    <h2>{{ row.1 }}</h2>
+                                    <h3>{{ row.1 }}</h3>
                                 </div>
                                 <div class="reader-name">
-                                    <h3>{{ row.2 }}</h3>
+                                    <h4>{{ row.2 }}</h4>
                                 </div>
                                 <div class="time">
-                                    <h3>{{ row.3 }} min</h3>
+                                    <h4>{{ row.3 }} min</h4>
                                 </div>
                             </div>
                         </div>
@@ -156,13 +79,13 @@
         <div class="wrapper">
             <!-- fiction -->
             <div class="section-title">
-                <h1>Fiction</h1>
+                <h2>Fiction</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
                     {% if row.5 == 1 %}
-                    <a href="audiobook-info/{{ row.0 }}">
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
@@ -170,13 +93,13 @@
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
-                                    <h2>{{ row.1 }}</h2>
+                                    <h3>{{ row.1 }}</h3>
                                 </div>
                                 <div class="reader-name">
-                                    <h3>{{ row.2 }}</h3>
+                                    <h4>{{ row.2 }}</h4>
                                 </div>
                                 <div class="time">
-                                    <h3>{{ row.3 }} min</h3>
+                                    <h4>{{ row.3 }} min</h4>
                                 </div>
                             </div>
                         </div>
@@ -199,13 +122,13 @@
         <div class="wrapper">
             <!-- inspire -->
             <div class="section-title">
-                <h1>Inspire</h1>
+                <h2>Inspire</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
                     {% if row.5 == 2  %}
-                    <a href="audiobook-info/{{ row.0 }}">
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
@@ -213,13 +136,13 @@
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
-                                    <h2>{{ row.1 }}</h2>
+                                    <h3>{{ row.1 }}</h3>
                                 </div>
                                 <div class="reader-name">
-                                    <h3>{{ row.2 }}</h3>
+                                    <h4>{{ row.2 }}</h4>
                                 </div>
                                 <div class="time">
-                                    <h3>{{ row.3 }} min</h3>
+                                    <h4>{{ row.3 }} min</h4>
                                 </div>
                             </div>
                         </div>
@@ -242,13 +165,13 @@
         <div class="wrapper">
             <!-- general -->
             <div class="section-title">
-                <h1>General</h1>
+                <h2>General</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
                     {% if row.5 == 3 %}
-                    <a href="audiobook-info/{{ row.0 }}">
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
                             <div class="book-cover">
@@ -256,13 +179,13 @@
                             </div>
                             <div class="book-detail">
                                 <div class="book-title">
-                                    <h2>{{ row.1 }}</h2>
+                                    <h3>{{ row.1 }}</h3>
                                 </div>
                                 <div class="reader-name">
-                                    <h3>{{ row.2 }}</h3>
+                                    <h4>{{ row.2 }}</h4>
                                 </div>
                                 <div class="time">
-                                    <h3>{{ row.3 }} min</h3>
+                                    <h4>{{ row.3 }} min</h4>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect,url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, logging
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
@@ -6,11 +6,27 @@ import pymysql.cursors
 # from base64 import encode
 
 import speech_recognition as sr
-
-
 from pythainlp.word_vector import sentence_vectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+# -------------------- Firebase Authentication ------------------- #
+
+import pyrebase
+config = {
+    "apiKey": "AIzaSyAUFHpJ0PYyvIsd1oAoTPHSxkMyRNBaY5E",
+    "authDomain": "lire-8e80d.firebaseapp.com",
+    "projectId": "lire-8e80d",
+    "databaseURL" : "",
+    "storageBucket": "lire-8e80d.appspot.com",
+    "messagingSenderId": "387969776204",
+    "appId": "1:387969776204:web:52ce111c12acd0bc5952e9",
+    "measurementId": "G-JLJG2BDC51"
+}
+
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+
+# -------------------- Firebase Authentication ------------------- #
 
 # from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 # from passlib.hash import sha256_crypt
@@ -44,7 +60,7 @@ with connection:
    @app.route('/')
    def Home():
       with connection.cursor() as cur:
-         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books')
+         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader != 0')
          rows = cur.fetchall()
          return render_template('index.html', datas=rows)
             # return str(rows)
@@ -60,34 +76,40 @@ with connection:
          # return row[0]
       # return id
 
+
    # sign up  
-   @app.route('/sign-up')
+   @app.route('/sign-up', methods=['GET', 'POST'])
    def signUpPage():
-      return render_template('signUp.html')
-
-   # class signUpForm(Form):
-   #    first_name = StringField('First Name', [validators.Length(min=1, max=50)])
-   #    last_name  = StringField('Last Name', [validators.Length(min=1, max=50)])
-   #    email  = StringField('Email', [validators.Length(min=6, max=50)])
-   #    password  = PasswordField('Password', [
-   #       validators.DataRequired(),
-   #       validators.EqualTo('confirm', message='Passwords do not match')
-   #    ])
-   #    confirm = PasswordField('Confirm Password')
+      unsuccesful = 'try again'
+      if request.method == 'POST':
+        fName = request.form['fName']
+        lName = request.form['lName']
+        email = request.form['email']
+        password = request.form['pass']
+        with connection.cursor() as cur:
+            sql="insert into `users` (`f_name`, `l_name`, `email`) values(%s,%s,%s)"
+            cur.execute(sql,(fName, lName, email))
+            connection.commit()
+        try:
+            auth.create_user_with_email_and_password(email, password)
+            return 'sign up successful' + 'br' + email + 'br' + fName + ' ' + lName 
+        except:
+            return render_template('sign-up.html', us=unsuccesful)
+      return render_template('sign-up.html')
 
    # sign up  
-   @app.route('/ign-up', methods=['POST'])
-   def signUp():
-      form = signUpForm(request.form)
-      if request.method == 'POST' and form.validate():
-         return render_template('signUp.html')
-      return render_template('signUp.html', form=form)
-         # fName = request.form['fName']
-         # lName = request.form['lName']
-         # email = request.form['email']
-         # passW = request.form['pass']
-         # with conn.cursor() as cursor:
-         #    sql = 'insert into `users` ()'
+   @app.route('/sign-in', methods=['POST'])
+   def signIn():
+    
+
+
+
+
+
+      
+
+      return render_template('login.html')
+
    
    # <---------------------------- NO SIGNIN ------------------------------------->
 
@@ -208,8 +230,9 @@ with connection:
             return redirect(request.url)
         
          with connection.cursor() as cursor:
-            sql="insert into `books` (`book_title`, `author`, `book_img`, `description` , `category_id`, `date`) values(%s,%s,%s,%s,%s,%s)"
-            cursor.execute(sql,(title, author, filename, description, category, now))
+            no_reader = 0
+            sql="insert into `books` (`book_title`, `author`, `reader`, `book_img`, `description` , `category_id`, `date`) values(%s,%s,%s,%s,%s,%s,%s)"
+            cursor.execute(sql,(title, author, no_reader, filename, description, category, now))
             connection.commit()
          # return redirect('insert-content')
          return redirect('admin-homepage')
