@@ -177,23 +177,31 @@ with connection:
    @app.route('/admin-homepage')
    def admin_homepage():
       with connection.cursor() as cur:
-         cur.execute('select book_id, book_title, author from books')
+         # cur.execute('select book_id, book_title, author from books')
+         sql = "SELECT bk.book_id, bk.book_title, bk.author, ct.category_name FROM books bk INNER JOIN category ct on bk.category_id = ct.category_id ORDER BY bk.book_id"
+         cur.execute(sql)
          rows = cur.fetchall()
-         return render_template('admin-homepage.html', datas=rows)
+         return render_template('admin-homepage.html', datas=rows, i = 0)
 
    # book's summary 
    @app.route('/summary/<string:id>')
    def summary_page(id):
-      with connection.cursor() as cur:
+      try:
+         with connection.cursor() as cur:
          # cur.execute("select book_title, author, category, book_img from books where book_id = %s inner join chapter ON books.chapter_id = chapter.chapter_id" , [id])
-         cur.execute("select book_title, author, category_name, description, book_img from books inner join category ON books.category_id = category.category_id where book_id = %s", [id])
-         result = cur.fetchone()
-         return render_template('admin-summary-book.html', book=result)
-         # return 
+         # cur.execute("select book_title, author, category_name, description, book_img, chapter.chapter from books inner join category on books.category_id = category.category_id right join chapter on books.book_id = chapter.book_id where book_id = %s", [id])
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, ct.category_name, bk.description, bk.book_img, cp.chapter FROM books bk INNER JOIN category ct on bk.category_id = ct.category_id RIGHT JOIN chapter cp on bk.book_id = cp.book_id WHERE bk.book_id = %s", [id])
+            result = cur.fetchall()
+            return render_template('admin-summary-book.html', book=result, cp = 'Chapter')
+      except:
+         with connection.cursor() as cur:
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, ct.category_name, bk.description, bk.book_img FROM books bk INNER JOIN category ct on bk.category_id = ct.category_id WHERE bk.book_id = %s", [id])
+            result = cur.fetchall()
+            return render_template('admin-summary-book.html', book=result, cp = 'No Chapter')
 
    # add centent page (Chapter)
-   @app.route('/summary/insert_content')
-   def add_content_page():
+   @app.route('/summary/insert_content/<string:id>')
+   def add_content_page(id):
       return render_template('admin-add-content.html')
 
    # add book page
@@ -223,7 +231,7 @@ with connection:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             #print('upload_image filename: ' + filename)
-            flash('Image successfully uploaded and displayed below')
+            # flash('Image successfully uploaded and displayed below')
             # return render_template('admin-add-book.html', filename=filename)
          else:
             flash('Allowed image types are - png, jpg, jpeg, gif')
@@ -234,8 +242,65 @@ with connection:
             sql="insert into `books` (`book_title`, `author`, `reader`, `book_img`, `description` , `category_id`, `date`) values(%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(sql,(title, author, no_reader, filename, description, category, now))
             connection.commit()
+            flash("Add successful")
+            return redirect('admin-homepage')
          # return redirect('insert-content')
-         return redirect('admin-homepage')
+
+   # edit book page
+   @app.route('/update-book/<string:id>')
+   def update_book_page(id):
+      with connection.cursor() as cur:
+         sql = 'SELECT bk.book_id, bk.book_title, bk.author, ct.category_id, bk.description, bk.book_img FROM books bk INNER JOIN category ct on bk.category_id = ct.category_id WHERE bk.book_id = %s'
+         cur.execute(sql, [id])
+         row = cur.fetchone()
+         return render_template('admin-edit-book.html', book=row)
+
+   # edit book process
+   @app.route('/update-book/edit-book-<string:id>', methods=['POST'])
+   def editBook(id):
+      if request.method == "POST":
+
+         category = request.form['category']
+         title = request.form['title']
+         author = request.form['author']
+         description = request.form['description']
+            
+         if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+         file = request.files['file']
+         now = datetime.now()
+         if file.filename == '':
+            flash('No image selected for uploading')
+            return redirect(request.url)
+         if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #print('upload_image filename: ' + filename)
+            # flash('Image successfully uploaded and displayed below')
+            # return render_template('admin-add-book.html', filename=filename)
+         else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')
+            return redirect(request.url)
+        
+         with connection.cursor() as cursor:
+            no_reader = 0
+            sql="update books set book_title = %s, author = %s , reader = %s , book_img = %s, description = %s, category_id = %s, date = %s where book_id = %s"
+            cursor.execute(sql,(title, author, no_reader, filename, description, category, now, id))
+            connection.commit()
+         return redirect(url_for('admin_homepage'))
+         # return redirect('insert-content')
+
+   # edit book page
+   @app.route('/delete-book/<string:id>')
+   def delete_book_page(id):
+      with connection.cursor() as cur:
+         sql = 'delete from books WHERE book_id = %s'
+         cur.execute(sql, [id])
+         connection.commit()
+         return redirect(url_for('admin_homepage'))
+
+   
 
    # add content (Chapter) process
    @app.route('/summary/add-content', methods=['POST'])

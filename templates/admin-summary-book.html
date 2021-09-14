@@ -6,49 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Book</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 
 <body>
     <header>
         <div class="container">
+            <nav>
+                <div class="logo mt-4 mb-4">
+                    <img src="/static/images/icon/logo.svg" alt="" width="50px">
 
-        <nav>
-            <div class="logo mt-4 mb-4">
-                <img src="/static/images/icon/logo.svg" alt="" width="50px">
-
-            </div>
-        </nav>
-
-        <div class="d-flex justify-content-end">
-
-            <a href="insert_content" class="btn btn-dark">Add Chapter</a>
-        </div> 
-        <div class="center row align-items-center">
-        <div class="border border-5">
-        <h1>{{ book.0 }}</h1>
-        
-        <!-- author -->
-        <h3>{{ book.2 }}</h3>
-        <!-- category -->
-            <div class="book d-flex justify-content-between">
-                <div class="box1">
-                     <img src="/static/uploads/{{ book.4 }}" width="300" height="auto">
-                     <!-- title -->
-                     <h2>{{ book.1 }}</h2>
-                     <p>{{ book.3 }}</p>
                 </div>
-            
-            
-            
-            
-            
+            </nav>
 
-            
+            <div class="d-flex justify-content-end">
+
+                <a href="insert_content/{{ book[0][0] }}" class="btn btn-dark my-2">Add Chapter</a>
+            </div>
+            <div class="center row align-items-center">
+                <div class="border border-5 d-flex p-4">
+
+                    <div class="headline">
+                        <h1>Title: </h1>
+                        <!-- author -->
+                        <h2>Author: </h2>
+                        <!-- category -->
+                        <h3>Category: </h3>
+                        <h4 class="mt-4">Description:</h4>
+                        <h4 class="mt-5">Cover:</h4>
+                    </div>
+                    <div class="value mx-4">
+                        <h1>{{ book[0][1] }}</h1>
+                        <!-- author -->
+                        <h2>{{ book[0][2] }}</h2>
+                        <!-- category -->
+                        <h3>{{ book[0][3] }}</h3>
+                        <p class="my-4">{{ book[0][4] }}</p>
+                        <img class="border" src="/static/uploads/{{ book[0][5] }}" width="300" height="auto">
+                    </div>
+
+                    <div class="chapters">
+                        <table width="100px" border="1" >
+                            <tr>
+                                <td>
+                                    {% for i in book %}
+                                    <a href="#">{{ cp }} {{ i[6] }}
+                                    </a>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </div>
-</div>  
-     </div>
+        </div>
     </header>
 </body>
 
