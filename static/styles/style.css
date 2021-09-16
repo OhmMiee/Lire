@@ -34,6 +34,7 @@ body::after .popup.active{
 nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 94px;
 }
 
@@ -47,11 +48,32 @@ nav {
 
 
 
+.reader button {
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: .6rem 1rem;
+    border: none;
+    /* border-radius: 0.5rem; */
+}
+
+.headline-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
 
 .audiobooks {
     position: relative;
     width: 227px;
     height: 365px;
+    margin: 0 0px 50px 00px;
   }
   
 .audiobook-container {
@@ -96,7 +118,7 @@ nav {
     width: 181.25px;
 }
   
-h2{
+h3{
     margin-top: 15px; 
     
 }
@@ -106,7 +128,7 @@ a {
     text-decoration: none; /* no underline */
   }
 
-h3 {
+h4 {
 
     color: #737373;
 }
@@ -235,7 +257,7 @@ h3 {
 }
 
 .section-title {
-    margin-bottom: 110px;
+    margin: 110px 0;
     text-align: center;
 }
 
@@ -244,10 +266,7 @@ h3 {
     color: #3F3F3F;
 }
 
-.books {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .line {
     margin: 90px 0;

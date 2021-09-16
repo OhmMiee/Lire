@@ -18,28 +18,34 @@
 
                 </div>
             </nav>
-            
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
             <div class="d-flex justify-content-between">
-
                 <h1>All Books</h1>
                 <div class="button ">
-
-                    <a href="insert-book" class="btn btn-dark">Add book</a>
+                    <a href="insert-book" class="btn btn-dark">Add Book</a>
                 </div>
             </div>
                 <div class="book">
                     <table width="200" border="1" class="table">
                         <tr>
-                            <td>Title</td>
-                            <td>Author</td>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Category</th>
                         <td>&nbsp;</td>
                     </tr>
                     {% for row in datas%}
                     <tr>
+                        <th>{{ row.0 }}</th>
                         <td>{{ row.1 }}</td>
                         <td>{{ row.2 }}</td>
-                        <td>
-                            <a href="summary/{{ row.0 }}">view more</a>
+                        <td>{{ row.3 }}</td>
+                        <td class="d-flex justify-content-end"">                   
+                            <a class="mx-2" href="summary/{{ row.0 }}">view more</a>
+                            <a href="update-book/{{ row.0 }}" class="btn btn-secondary">Edit Book</a>
+                            <a href="delete-book/{{ row.0 }}" class="btn btn-danger mx-2">Delete Book</a>
                         </td>
                     </tr>
                     {% endfor %}
