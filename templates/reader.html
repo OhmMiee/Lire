@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liré</title>
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/reader.css">
+    <!-- CSS only -->
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
 </head>
 
@@ -17,94 +18,48 @@
                 <nav>
                     <div class="logo">
                         <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt=""> -->
-                        <img src="/static/images/icon/logo.svg" alt="">
+                        <!-- <img src="/static/images/icon/logo.svg" alt="logo"> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+                            <defs>
+                              <style>
+                                .cls-1 {
+                                  fill: #ffffff;
+                                  fill-rule: evenodd;
+                                }
+                              </style>
+                            </defs>
+                            <path class="cls-1" d="M30,0.518H214.3a30,30,0,0,1,30,30V1970.93a30,30,0,0,1-30,30H30a30,30,0,0,1-30-30V30.518A30,30,0,0,1,30,.518Z"/>
+                            <path class="cls-1" d="M527.5,494.479h189.99a30,30,0,0,1,30,30V1970.52a30,30,0,0,1-30,30H527.5a30,30,0,0,1-30-30V524.479A30,30,0,0,1,527.5,494.479Z"/>
+                            <path class="cls-1" d="M1031.01-3.012h184.98a30,30,0,0,1,30,30v1941a30,30,0,0,1-30,30H1031.01a30,30,0,0,1-30-30v-1941A30,30,0,0,1,1031.01-3.012Z"/>
+                            <path class="cls-1" d="M1530.5,501.576h189a30,30,0,0,1,30,30V1970.42a30,30,0,0,1-30,30h-189a30,30,0,0,1-30-30V531.576A30,30,0,0,1,1530.5,501.576Z"/>
+                            <path class="cls-1" d="M1498.99-1.541l-0.16,247.531-469.85-.457A30.015,30.015,0,0,1,999,215.5l0.117-187.531A29.986,29.986,0,0,1,1029.13-2Z"/>
+                            <path class="cls-1" d="M2000,532.46l-0.12,187.582a29.986,29.986,0,0,1-30.01,29.971l-438.9-.428a30.018,30.018,0,0,1-29.98-30.03l0.12-187.581A29.987,29.987,0,0,1,1531.13,502l438.89,0.428A30.011,30.011,0,0,1,2000,532.46Z"/>
+                            <path class="cls-1" d="M1771.69,96.44L1905.2,229.988a29.983,29.983,0,0,1-.02,42.411L1750.54,426.765l-175.93-175.98L1729.25,96.419A30.024,30.024,0,0,1,1771.69,96.44Z"/>
+                            <path class="cls-1" d="M1999.47,1156.25l-0.12,188.98a29.994,29.994,0,0,1-30.01,29.97l-437.84-.43a30.019,30.019,0,0,1-29.98-30.03l0.12-188.98a29.983,29.983,0,0,1,30.02-29.97l437.83,0.43A30.007,30.007,0,0,1,1999.47,1156.25Z"/>
+                            <path class="cls-1" d="M2000,1782.46l-0.12,187.58a29.981,29.981,0,0,1-30.01,29.97l-438.9-.42a30.026,30.026,0,0,1-29.98-30.03l0.12-187.59a29.99,29.99,0,0,1,30.02-29.97l438.89,0.43A30.013,30.013,0,0,1,2000,1782.46Z"/>
+                            <path class="cls-1" d="M528-2H718.013a30,30,0,0,1,30,30V215.992a30,30,0,0,1-30,30H528a30,30,0,0,1-30-30V28A30,30,0,0,1,528-2Z"/>
+                          </svg>
+                          
+                    </div>
+                    <div class="list" onclick="">
+                        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M45.5625 25.3126H8.4375C7.98995 25.3126 7.56072 25.4904 7.24426 25.8068C6.92779 26.1233 6.75 26.5525 6.75 27.0001C6.75 27.4476 6.92779 27.8768 7.24426 28.1933C7.56072 28.5098 7.98995 28.6876 8.4375 28.6876H45.5625C46.0101 28.6876 46.4393 28.5098 46.7557 28.1933C47.0722 27.8768 47.25 27.4476 47.25 27.0001C47.25 26.5525 47.0722 26.1233 46.7557 25.8068C46.4393 25.4904 46.0101 25.3126 45.5625 25.3126Z"
+                                fill="#F2F2F2" />
+                            <path
+                                d="M8.4375 15.1876H45.5625C46.0101 15.1876 46.4393 15.0098 46.7557 14.6933C47.0722 14.3768 47.25 13.9476 47.25 13.5001C47.25 13.0525 47.0722 12.6233 46.7557 12.3068C46.4393 11.9904 46.0101 11.8126 45.5625 11.8126H8.4375C7.98995 11.8126 7.56072 11.9904 7.24426 12.3068C6.92779 12.6233 6.75 13.0525 6.75 13.5001C6.75 13.9476 6.92779 14.3768 7.24426 14.6933C7.56072 15.0098 7.98995 15.1876 8.4375 15.1876Z"
+                                fill="#F2F2F2" />
+                            <path
+                                d="M45.5625 38.8126H8.4375C7.98995 38.8126 7.56072 38.9904 7.24426 39.3068C6.92779 39.6233 6.75 40.0525 6.75 40.5001C6.75 40.9476 6.92779 41.3768 7.24426 41.6933C7.56072 42.0098 7.98995 42.1876 8.4375 42.1876H45.5625C46.0101 42.1876 46.4393 42.0098 46.7557 41.6933C47.0722 41.3768 47.25 40.9476 47.25 40.5001C47.25 40.0525 47.0722 39.6233 46.7557 39.3068C46.4393 38.9904 46.0101 38.8126 45.5625 38.8126Z"
+                                fill="#F2F2F2" />
+                        </svg>
                     </div>
                 </nav>
             </div>
         </div>
-        <div class="header-container">
+        <div class="headline-container">
             <div class="wrapper">
-                <!-- sign in and sign up -->
-                <div class="sign-up-sing-in">
-                    <button class="sign-up" onclick="signUpTogglePopup()">SIGN UP</button>
-                    <button class="sign-in" onclick="signInTogglePopup()">SIGN IN</button>
-                </div>
-
-                <!-- sign up -->
-                <div class="popup" id="popup-1">
-                    <div class="content">
-                        <div class="close-btn" onclick="signUpTogglePopup()">X</div>
-                        <h1>SIGN UP</h1>
-                        <form action="" method="post">
-                            <div class="input-field">
-                                <label for="first-name">First Name</label><br>
-                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="last-name">Last Name</label><br>
-                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="email">Email</label><br>
-                                <input type="email" placeholder="Enter your email address " name="email" id="email"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="password">Password</label><br>
-                                <input type="password" placeholder="Enter your password" name="pass" id="password"
-                                    required>
-                            </div>
-                            <button type="submit" class="second-button">
-                                submit
-                            </button>
-                        </form>
-                        <p>Already have an account?
-                            <a href="#">Sign In</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign up -->
-
-                <!-- sign in -->
-                <div class="popup" id="popup-2">
-                    <div class="content">
-                        <div class="close-btn" onclick="signInTogglePopup()">X</div>
-                        <h1>SIGN IN</h1>
-                        <div class="input-field">
-                            <label for="email">Email</label><br>
-                            <input type="email" placeholder="Enter your email address " name="" id="" class="validate">
-                        </div>
-                        <div class="input-field">
-                            <label for="password">Password</label><br>
-                            <input type="password" placeholder="Enter your password" name="" id="" class="validate">
-                        </div>
-                        <button type="submit" class="second-button">
-                            submit
-                        </button>
-                        <p>Don't have an account?
-                            <a href="#">Sign Up</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign in -->
-
-
-                <script>
-
-                    function signUpTogglePopup() {
-                        document.getElementById("popup-1")
-                            .classList.toggle("active");
-                    }
-
-                    function signInTogglePopup() {
-                        document.getElementById("popup-2")
-                            .classList.toggle("active");
-                    }
-
-                </script>
-                <!-- sign in and sign up -->
+                <h1>Pick a book  to share your voice</h1>
             </div>
         </div>
     </header>
@@ -113,31 +68,31 @@
         <div class="wrapper">
             <!-- new release -->
             <div class="section-title">
-                <h1>New Release</h1>
+                <h2>New Release</h2>
             </div>
             
             <!-- books -->
-            <div class="books">
+            <div class="books" >
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}"> 
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="reader-name">
+                                    <h4>{{ row.2 }}</h4>
+                                </div>
+                                <div class="time">
+                                    <h4>{{ row.3 }} min</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
                 {% endfor %}
             </div>
             <!-- books -->
@@ -155,30 +110,32 @@
         <div class="wrapper">
             <!-- fiction -->
             <div class="section-title">
-                <h1>Fiction</h1>
+                <h2>Fiction</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    {% if row.5 == 1 %}
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="reader-name">
+                                    <h4>{{ row.2 }}</h4>
+                                </div>
+                                <div class="time">
+                                    <h4>{{ row.3 }} min</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <!-- books -->
@@ -196,271 +153,82 @@
         <div class="wrapper">
             <!-- inspire -->
             <div class="section-title">
-                <h1>Inspire</h1>
+                <h2>Inspire</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    {% if row.5 == 2  %}
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="reader-name">
+                                    <h4>{{ row.2 }}</h4>
+                                </div>
+                                <div class="time">
+                                    <h4>{{ row.3 }} min</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <!-- books -->
             <!-- inspire -->
         </div>
     </section>
-    <footer>
-        <div class="wrapper">
-            <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>
-        </div>
-    </footer>
-</body>
 
-</html><!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liré</title>
-    <link rel="stylesheet" href="/static/styles/style.css">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
-</head>
-
-<body>
-    <header>
-        <div class="nav-container">
-            <div class="wrapper">
-                <nav>
-                    <div class="logo">
-                        <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt=""> -->
-                        <img src="/static/images/icon/logo.svg" alt="">
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <div class="header-container">
-            <div class="wrapper">
-                <!-- sign in and sign up -->
-                <div class="sign-up-sing-in">
-                    <button class="sign-up" onclick="signUpTogglePopup()">SIGN UP</button>
-                    <button class="sign-in" onclick="signInTogglePopup()">SIGN IN</button>
-                </div>
-
-                <!-- sign up -->
-                <div class="popup" id="popup-1">
-                    <div class="content">
-                        <div class="close-btn" onclick="signUpTogglePopup()">X</div>
-                        <h1>SIGN UP</h1>
-                        <form action="" method="post">
-                            <div class="input-field">
-                                <label for="first-name">First Name</label><br>
-                                <input type="text" placeholder="Enter your first name" name="fName" id="first-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="last-name">Last Name</label><br>
-                                <input type="text" placeholder="Enter your last name" name="lName" id="last-name"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="email">Email</label><br>
-                                <input type="email" placeholder="Enter your email address " name="email" id="email"
-                                    required>
-                            </div>
-                            <div class="input-field">
-                                <label for="password">Password</label><br>
-                                <input type="password" placeholder="Enter your password" name="pass" id="password"
-                                    required>
-                            </div>
-                            <button type="submit" class="second-button">
-                                submit
-                            </button>
-                        </form>
-                        <p>Already have an account?
-                            <a href="#">Sign In</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign up -->
-
-                <!-- sign in -->
-                <div class="popup" id="popup-2">
-                    <div class="content">
-                        <div class="close-btn" onclick="signInTogglePopup()">X</div>
-                        <h1>SIGN IN</h1>
-                        <div class="input-field">
-                            <label for="email">Email</label><br>
-                            <input type="email" placeholder="Enter your email address " name="" id="" class="validate">
-                        </div>
-                        <div class="input-field">
-                            <label for="password">Password</label><br>
-                            <input type="password" placeholder="Enter your password" name="" id="" class="validate">
-                        </div>
-                        <button type="submit" class="second-button">
-                            submit
-                        </button>
-                        <p>Don't have an account?
-                            <a href="#">Sign Up</a>
-                        </p>
-                    </div>
-                </div>
-                <!-- sign in -->
-
-
-                <script>
-
-                    function signUpTogglePopup() {
-                        document.getElementById("popup-1")
-                            .classList.toggle("active");
-                    }
-
-                    function signInTogglePopup() {
-                        document.getElementById("popup-2")
-                            .classList.toggle("active");
-                    }
-
-                </script>
-                <!-- sign in and sign up -->
-            </div>
-        </div>
-    </header>
-
-    <section>
-        <div class="wrapper">
-            <!-- new release -->
-            <div class="section-title">
-                <h1>New Release</h1>
-            </div>
-            
-            <!-- books -->
-            <div class="books">
-                {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
-                        </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-            <!-- books -->
-            <!-- new release -->
-        </div>
-    </section>
-
-    <!-- line 1 -->
+    <!-- line 3 -->
     <div class="wrapper">
         <div class="line"></div>
     </div>
-    <!-- line 1 -->
+    <!-- line 3 -->
 
     <section>
         <div class="wrapper">
-            <!-- fiction -->
+            <!-- general -->
             <div class="section-title">
-                <h1>Fiction</h1>
+                <h2>General</h2>
             </div>
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
+                    {% if row.5 == 3 %}
+                    <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                        <div class="audiobooks">
+                            <div class="audiobook-container"></div>
+                            <div class="book-cover">
+                                <img src="/static/uploads/{{ row.4 }}" alt="">
+                            </div>
+                            <div class="book-detail">
+                                <div class="book-title">
+                                    <h3>{{ row.1 }}</h3>
+                                </div>
+                                <div class="reader-name">
+                                    <h4>{{ row.2 }}</h4>
+                                </div>
+                                <div class="time">
+                                    <h4>{{ row.3 }} min</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <!-- books -->
-            <!-- fiction -->
+            <!-- general -->
         </div>
     </section>
 
-    <!-- line 2 -->
-    <div class="wrapper">
-        <div class="line"></div>
-    </div>
-    <!-- line 2 -->
-
-    <section>
-        <div class="wrapper">
-            <!-- inspire -->
-            <div class="section-title">
-                <h1>Inspire</h1>
-            </div>
-            <!-- books -->
-            <div class="books">
-                {% for row in datas %}
-                <a href="#">
-                    <div class="audiobooks">
-                        <div class="audiobook-container"></div>
-                        <div class="book-cover">
-                            <img src="{{ row.3 }}" alt="">
-                        </div>
-                        <div class="book-detail">
-                            <div class="book-title">
-                                <h2>{{ row.0 }}</h2>
-                            </div>
-                            <div class="reader-name">
-                                <h3>{{ row.1 }}</h3>
-                            </div>
-                            <div class="time">
-                                <h3>{{ row.2 }} min</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-            <!-- books -->
-            <!-- inspire -->
-        </div>
-    </section>
     <footer>
         <div class="wrapper">
             <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>

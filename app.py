@@ -5,26 +5,26 @@ import os
 import pymysql.cursors
 # from base64 import encode
 
-import speech_recognition as sr
-from pythainlp.word_vector import sentence_vectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+# import speech_recognition as sr
+# from pythainlp.word_vector import sentence_vectorizer
+# from sklearn.metrics.pairwise import cosine_similarity
 
-# -------------------- Firebase Authentication ------------------- #
+# # -------------------- Firebase Authentication ------------------- #
 
-import pyrebase
-config = {
-    "apiKey": "AIzaSyAUFHpJ0PYyvIsd1oAoTPHSxkMyRNBaY5E",
-    "authDomain": "lire-8e80d.firebaseapp.com",
-    "projectId": "lire-8e80d",
-    "databaseURL" : "",
-    "storageBucket": "lire-8e80d.appspot.com",
-    "messagingSenderId": "387969776204",
-    "appId": "1:387969776204:web:52ce111c12acd0bc5952e9",
-    "measurementId": "G-JLJG2BDC51"
-}
+# import pyrebase
+# config = {
+#     "apiKey": "AIzaSyAUFHpJ0PYyvIsd1oAoTPHSxkMyRNBaY5E",
+#     "authDomain": "lire-8e80d.firebaseapp.com",
+#     "projectId": "lire-8e80d",
+#     "databaseURL" : "",
+#     "storageBucket": "lire-8e80d.appspot.com",
+#     "messagingSenderId": "387969776204",
+#     "appId": "1:387969776204:web:52ce111c12acd0bc5952e9",
+#     "measurementId": "G-JLJG2BDC51"
+# }
 
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
+# firebase = pyrebase.initialize_app(config)
+# auth = firebase.auth()
 
 # -------------------- Firebase Authentication ------------------- #
 
@@ -115,7 +115,14 @@ with connection:
 
 
    # <---------------------------- SIGNIN ------------------------------------->
-
+   @app.route('/reader-homepage')
+   def reader_homepage():
+       with connection.cursor() as cur:
+         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader != 0')
+         rows = cur.fetchall()
+         return render_template('reader.html', datas=rows)
+   
+   
 
    @app.route('/book-unknown')
    def audiobook_page():
