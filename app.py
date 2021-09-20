@@ -13,14 +13,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 import pyrebase
 config = {
-    "apiKey": "AIzaSyAUFHpJ0PYyvIsd1oAoTPHSxkMyRNBaY5E",
-    "authDomain": "lire-8e80d.firebaseapp.com",
-    "projectId": "lire-8e80d",
-    "databaseURL" : "",
-    "storageBucket": "lire-8e80d.appspot.com",
-    "messagingSenderId": "387969776204",
-    "appId": "1:387969776204:web:52ce111c12acd0bc5952e9",
-    "measurementId": "G-JLJG2BDC51"
+   "apiKey": "AIzaSyAkQY5UT9aye5C0XZSfhCulbuWgXd43YO4",
+   "authDomain": "learn-firebase-8568d.firebaseapp.com",
+   "projectId": "learn-firebase-8568d",
+   "databaseURL" : "",
+   "storageBucket": "learn-firebase-8568d.appspot.com",
+   "messagingSenderId": "724149410398",
+   "appId": "1:724149410398:web:2f9e49bec32ab7e42a72cf",
+   "measurementId": "G-SLKJDS5F50"
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -78,7 +78,7 @@ with connection:
 
 
    # sign up  
-   @app.route('/sign-up', methods=['GET', 'POST'])
+   @app.route('/reader-sign-up', methods=['GET', 'POST'])
    def signUpPage():
       unsuccesful = 'try again'
       if request.method == 'POST':
@@ -92,23 +92,21 @@ with connection:
             connection.commit()
         try:
             auth.create_user_with_email_and_password(email, password)
-            return 'sign up successful' + 'br' + email + 'br' + fName + ' ' + lName 
+            return redirect('reader-sign-in')
         except:
-            return render_template('sign-up.html', us=unsuccesful)
-      return render_template('sign-up.html')
-
-   # sign up  
-   @app.route('/sign-in', methods=['POST'])
-   def signIn():
-    
-
-
-
-
-
+            return render_template('reader-sign-up.html', us=unsuccesful)
+      return render_template('reader-sign-up.html')
       
 
-      return render_template('login.html')
+   # sign up  
+   @app.route('/reader-sign-in', methods=['GET', 'POST'])
+   def signInPage():
+      if request.method == 'POST':
+         email = request.form['email']
+         password = request.form['pass']
+         auth.sign_in_with_email_and_password(email, password)
+         return "yes"
+      return render_template('reader-sign-in.html')
 
    
    # <---------------------------- NO SIGNIN ------------------------------------->
