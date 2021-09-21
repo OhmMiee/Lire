@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/reader-sign-up.css">
+    <title>Sign Up</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="sign-up-container" aria-label="sign up box">
+            <header>
+                <h1>SIGN UP</h1>
+                {{ us }}
+                <form action="" method="post">
+                    <div class="input-field">
+                        <label for="first-name">First Name</label><br>
+                        <input type="text" placeholder="Enter your first name" name="fName" id="first-name">
+                    </div>
+                    <div class="input-field">
+                        <label for="last-name">Last Name</label><br>
+                        <input type="text" placeholder="Enter your last name" name="lName" id="last-name">
+                    </div>
+                    <div class="input-field">
+                        <label for="email">Email</label><br>
+                        <input type="email" placeholder="Enter your email address " name="email" id="email">
+                    </div>
+                    <div class="input-field">
+                        <label for="password">Password</label><br>
+                        <input type="password" placeholder="Enter your password" name="pass" id="password">
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="second-button">
+                            submit
+                        </button>
+                    </div>
+                </form>
+                
+                <p>Already have an account?
+                    <a href="reader-sign-in">Sign In</a>
+                </p>
+            </header>
+        </div>
+    </div>
+</body>
+
+</html>
