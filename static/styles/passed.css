@@ -6,6 +6,16 @@
 body{
   background-color: #000;
 }
+
+.logo .logo-svg {
+  height: 50px;
+  margin-right: auto;
+}
+
+.logo .cls-1 {
+  fill: #F2F2F2;
+  fill-rule: evenodd;
+}
 .wrapper {
     max-width: 1058px;
     margin: 0 auto;
@@ -41,5 +51,7 @@ nav {
     color: rgb(234, 240, 238);
     padding: 0px 278px;
   }
+
+
  
 
