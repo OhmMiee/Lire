@@ -3,6 +3,9 @@
 *{
     font-family: 'Roboto', sans-serif;
 }
+body{
+  background-color: #000;
+}
 .wrapper {
     max-width: 1058px;
     margin: 0 auto;
@@ -12,22 +15,27 @@ nav {
     align-items: center;
     height: 94px;
 }
+
 .audiobooks {
     max-width: 940px;
     margin: 0 auto;
     
+    
 
   }
 .audiobook-container {
-    position: absolute;
+    
     bottom: 0px;
     width: 879px;
     height: 550px;
     background: #2C2C2C;
     border-radius: 22px;
+    box-shadow: 0px 4px 41px rgba(255, 255, 255, 0.13);
+    
+    
   }
   .logopass {
-    padding: 130px 340px;
+    padding: 130px 340px 0 340px;
   }
   h1{
     color: rgb(234, 240, 238);

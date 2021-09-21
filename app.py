@@ -137,12 +137,27 @@ with connection:
    def reader_library(id):
       with connection.cursor() as cur:
          # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books where reader = 4')
-         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE us.email = %s", [id[2:-2]])
+         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us ON bk.reader = us.user_id WHERE us.email = %s", [id[2:-2]])
          rows = cur.fetchall()
          # return render_template('reader.html', datas=rows)
          return render_template('reader-library.html', datas=rows)
          # return id
          # return id[2:-2]
+
+   @app.route('/show-chapter-<string:id>')
+   def reader_show_chapter(id):
+      try:
+         with connection.cursor() as cur:
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
+            cur.execute(sql, [id])
+            rows = cur.fetchall()
+            return render_template('reader-show-chapter.html', datas=rows)
+      except:
+         with connection.cursor() as cur:
+            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
+            cur.execute(sql, [id])
+            row = cur.fetchone()
+            return render_template('reader-no-chapter.html', data=row)
 
    @app.route('/book-unknown')
    def audiobook_page():
@@ -188,7 +203,14 @@ with connection:
          origin = sentence_vectorizer(twoDatas[0][0])
          google = sentence_vectorizer(twoDatas[0][1])
          similarity = cosine_similarity(origin, google)
+         if similarity >=0.85:
+            return render_template('passed.html')
+         else:
+            return render_template('failed.html')   
          return render_template('process.html', data = similarity)
+
+      
+         
 
    # <---------------------------- SIGNIN ------------------------------------->
 

@@ -84,15 +84,6 @@ nav {
 }
 
 
-.book-title h1{
-    font-size: 3rem;
-}
-
-.book-author h2{
-    color: #737373;
-    font-size: 2rem;
-}
-
 .book-description p{
     word-wrap: break-word;
     color: #D3D3D3;
@@ -148,7 +139,7 @@ label {
     height: 550px;
     background: #2C2C2C;
     width: 879px;
-    position: absolute;
+    position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -193,4 +184,50 @@ label {
     font-size: 24px;
     text-transform: uppercase;
     border: none;
+}
+.back a{
+    
+    
+    color: #ffffff;
+    
+    
+
+    
+}
+.chapter{
+
+    font-size: 24px;
+}
+
+.ButtonChapter {
+    display: flex;
+}
+
+.ButtonChapter button{
+
+    width: 68px;
+    height: 64px;
+    font-size: 36px;
+    background: #C8C8C8;
+    box-shadow: 0px 4px 10px 1px rgba(255, 255, 255, 0.25);
+    border-radius: 11px;
+
+}
+.Reserve-button button {
+    margin: auto 0;
+    background: rgba(255, 232, 172, 0.99);
+    border-radius: 31px;
+    margin-bottom: 24px;
+    width: 190px;
+    height: 58px;
+
+    font-size: 2rem;
+    padding: 5px 3px;
+    border: none;
+
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
 }

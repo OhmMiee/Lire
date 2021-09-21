@@ -57,6 +57,10 @@ nav {
     box-shadow: 0px 4px 41px rgba(255, 255, 255, 0.09);
     border-radius: 30px;
     display: flex;
+
+    
+    
+    
 }
 
 .book-cover {
@@ -81,6 +85,8 @@ nav {
     width: 540px;
     height: 400px;
     /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -93,12 +99,7 @@ nav {
     font-size: 2rem;
 }
 
-.book-description p{
-    word-wrap: break-word;
-    color: #D3D3D3;
-    /* background-color: rosybrown; */
-    padding-right: 10px;
-}
+
 
 
 .button button{
@@ -111,7 +112,10 @@ nav {
     border-radius: 16px;
     font-size: 2rem;
     padding: 5px 3px;
+    
+    
 }
+
 
 .inputfile {
     /* visibility: hidden etc. wont work */
@@ -148,7 +152,7 @@ label {
     height: 550px;
     background: #2C2C2C;
     width: 879px;
-    position: absolute;
+    position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -193,4 +197,29 @@ label {
     font-size: 24px;
     text-transform: uppercase;
     border: none;
+}
+.back a{
+      
+    color: #ffffff;
+    
+}
+.boxchapter{
+    position: absolute;
+
+    margin-top: 100px;
+    width: 524px;
+    height: 140px;
+    
+
+    background: #E8E8E8;
+    border-radius: 42px;
+}
+.boxchapter h1{
+    font-size: 50px;
+    color: #808080;
+    border-radius: 42px;
+
+    margin-top:40px;
+    text-align: center;
+
 }
