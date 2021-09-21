@@ -3,28 +3,28 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 import pymysql.cursors
-# from base64 import encode
+from base64 import encode
 
-# import speech_recognition as sr
-# from pythainlp.word_vector import sentence_vectorizer
-# from sklearn.metrics.pairwise import cosine_similarity
+import speech_recognition as sr
+from pythainlp.word_vector import sentence_vectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # -------------------- Firebase Authentication ------------------- #
 
-# import pyrebase
-# config = {
-#    "apiKey": "AIzaSyAkQY5UT9aye5C0XZSfhCulbuWgXd43YO4",
-#    "authDomain": "learn-firebase-8568d.firebaseapp.com",
-#    "projectId": "learn-firebase-8568d",
-#    "databaseURL" : "",
-#    "storageBucket": "learn-firebase-8568d.appspot.com",
-#    "messagingSenderId": "724149410398",
-#    "appId": "1:724149410398:web:2f9e49bec32ab7e42a72cf",
-#    "measurementId": "G-SLKJDS5F50"
-# }
+import pyrebase
+config = {
+   "apiKey": "AIzaSyAkQY5UT9aye5C0XZSfhCulbuWgXd43YO4",
+   "authDomain": "learn-firebase-8568d.firebaseapp.com",
+   "projectId": "learn-firebase-8568d",
+   "databaseURL" : "",
+   "storageBucket": "learn-firebase-8568d.appspot.com",
+   "messagingSenderId": "724149410398",
+   "appId": "1:724149410398:web:2f9e49bec32ab7e42a72cf",
+   "measurementId": "G-SLKJDS5F50"
+}
 
-# firebase = pyrebase.initialize_app(config)
-# auth = firebase.auth()
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
 
 # -------------------- Firebase Authentication ------------------- #
 
@@ -166,7 +166,14 @@ with connection:
          origin = sentence_vectorizer(twoDatas[0][0])
          google = sentence_vectorizer(twoDatas[0][1])
          similarity = cosine_similarity(origin, google)
+         if similarity >=0.85:
+            return render_template('passed.html')
+         else:
+            return render_template('failed.html')   
          return render_template('process.html', data = similarity)
+
+      
+         
 
    # <---------------------------- SIGNIN ------------------------------------->
 
