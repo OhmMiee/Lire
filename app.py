@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
+from gensim.utils import file_or_filename
 from werkzeug.utils import secure_filename
 import os
 import pymysql.cursors
@@ -187,8 +188,8 @@ with connection:
    #    return render_template('book-upload.html')
 
    # upload & speech to text 
-   @app.route('/upload', methods=['POST'])
-   def upload():
+   @app.route('/upload-<string:id>', methods=['POST'])
+   def upload(id):
 
       transcript = ""
       
@@ -209,28 +210,61 @@ with connection:
                data = recognizer.record(source)
             transcript = recognizer.recognize_google(data, language="th-TH", key=None)
             with connection.cursor() as cur:
-               sql = "update chapter set content = %s where chapter_id = 0"
-               cur.execute(sql, transcript)
+               sql = "update chapter set google_value = %s where chapter_id = %s"
+               cur.execute(sql, (transcript, id))
                connection.commit()
-      # return render_template("book-upload.html", transcript=transcript)
-      return redirect('process')
+            with connection.cursor() as cur:
+               sql = "select content, google_value from chapter where chapter_id = %s"
+               cur.execute(sql, id)
+               twoDatas = cur.fetchall()
+               origin = sentence_vectorizer(twoDatas[0][0])
+               google = sentence_vectorizer(twoDatas[0][1])
+               similarity = cosine_similarity(origin, google)
+            with connection.cursor() as cur:
+               sql = "update chapter set similarity = %s where chapter_id = %s"
+               cur.execute(sql, (similarity, id))
+               connection.commit()
+               if similarity >=0.85:
+                  filename = secure_filename(file.filename)
+                  file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                  return render_template('reader-file-passed.html')
+                  # return "yes" + similarity
+               else:
+                  # return "No"
+                  return render_template('reader-file-failed.html')
+
+               # return transcript + " " + id
+         
+      # return redirect(url_for('compare', file=file))
       # return transcript
 
    # comparison similarity
-   @app.route('/process')
+   @app.route('/process', methods=['POST'])
    def compare():
-      with connection.cursor() as cur:
-         sql = "select content, google_value from chapter"
-         cur.execute(sql)
-         twoDatas = cur.fetchall()
-         origin = sentence_vectorizer(twoDatas[0][0])
-         google = sentence_vectorizer(twoDatas[0][1])
-         similarity = cosine_similarity(origin, google)
-         if similarity >=0.85:
-            return render_template('passed.html')
-         else:
-            return render_template('failed.html')   
-         return render_template('process.html', data = similarity)
+      if request.method == "POST":
+         file = request.get('file')
+         # return file
+         if file and allowed_file(file.filename):
+               filename = secure_filename(file.filename)
+               file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+               return "yes"
+            #print('upload_image filename: ' + filename)
+            # flash('Image successfully uploaded and displayed below')
+            # return render_template('admin-add-book.html', filename=filename)
+      # with connection.cursor() as cur:
+      #    sql = "select content, google_value from chapter"
+      #    cur.execute(sql)
+      #    twoDatas = cur.fetchall()
+      #    origin = sentence_vectorizer(twoDatas[0][0])
+      #    google = sentence_vectorizer(twoDatas[0][1])
+      #    similarity = cosine_similarity(origin, google)
+      #    if similarity >=0.85:
+      #       with connection.cursor() as cur:
+      #          sql = "INSERT"
+      #       return render_template('passed.html')
+      #    else:
+      #       return render_template('failed.html')   
+      #    return render_template('process.html', data = similarity)
 
       
    @app.route('/logout')
