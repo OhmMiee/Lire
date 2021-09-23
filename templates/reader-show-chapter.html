@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>book-unknown</title>
+    <title>{{ datas[0][1] }}</title>
     <link rel="stylesheet" href="/static/styles/add-chapter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -73,13 +73,13 @@
         <div class="book-upload-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="https://www.adobe.com/express/discover/ideas/media_1e0050318770e4a770caf5515f8120a3ea48c7c07.png?width=2000&format=webply&optimize=medium"
+                    <img src="/static/uploads/{{ datas[0][3] }}"
                         alt="">
                 </div>
                 <div class="right-side">
                     <div class="top">
                         <div class="book-title">
-                            <h1>unknown</h1>
+                            <h1>{{ datas[0][1] }}</h1>
                         </div>
                         <div class="Reserve-button">
                             <button type="button">
@@ -88,26 +88,21 @@
                         </div>
                     </div><br>
 
-
                     <div class="book-author">
-                        <h2>author</h2>
+                        <h2>{{ datas[0][2] }}</h2>
                     </div>
 
                     <div class="book-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, sem eget lacinia
-                            rhoncus, dolor augue pulvinar nisl, gravida lacinia ante leo id odio. Donec sollicitudin, mi
-                            at dictum aliquet, dui lacus commodo sapien, ut rutrum metus turpis sit amet sapien.</p>
+                        <p>{{ datas[0][4] }}</p>
                     </div><br>
                     <div class="chapter">
                         <a>chapter</a>
                     </div><br>
-
                     <div class="ButtonChapter">
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
+                        {% for row in datas %}
+                        <button>{{ row[7] }}</button>
+                        {% endfor %}
                     </div>
-
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, logging
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 import pymysql.cursors
-from base64 import encode
+# from base64 import encode
 
 import speech_recognition as sr
 from pythainlp.word_vector import sentence_vectorizer
@@ -88,13 +88,14 @@ with connection:
         lName = request.form['lName']
         email = request.form['email']
         password = request.form['pass']
-        with connection.cursor() as cur:
-            sql="insert into `users` (`f_name`, `l_name`, `email`) values(%s,%s,%s)"
-            cur.execute(sql,(fName, lName, email))
-            connection.commit()
+        
         try:
-            auth.create_user_with_email_and_password(email, password)
-            return redirect('reader-sign-in')
+            with connection.cursor() as cur:
+               sql="insert into `users` (`f_name`, `l_name`, `email`) values(%s,%s,%s)"
+               cur.execute(sql,(fName, lName, email))
+               connection.commit()
+               auth.create_user_with_email_and_password(email, password)
+               return redirect('reader-sign-in')
         except:
             return render_template('reader-sign-up.html', us=unsuccesful)
       return render_template('reader-sign-up.html')
@@ -104,10 +105,16 @@ with connection:
    @app.route('/reader-sign-in', methods=['GET', 'POST'])
    def signInPage():
       if request.method == 'POST':
-         email = request.form['email']
+         session['email'] = request.form['email']
+         # email = request.form['email']
          password = request.form['pass']
-         auth.sign_in_with_email_and_password(email, password)
-         return "yes"
+         auth.sign_in_with_email_and_password(session['email'], password)
+         # with connection.cursor() as cur:
+         #    cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
+         #    # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
+         #    rows = cur.fetchall()
+         #    return render_template('reader.html', datas=rows, email=email)
+         return redirect('reader-homepage')
       return render_template('reader-sign-in.html')
 
    
@@ -117,12 +124,42 @@ with connection:
    # <---------------------------- SIGNIN ------------------------------------->
    @app.route('/reader-homepage')
    def reader_homepage():
-       with connection.cursor() as cur:
-         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader != 0')
+      if 'email' in session:
+         with connection.cursor() as cur:
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
+            # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
+            rows = cur.fetchall()
+            return render_template('reader.html', datas=rows, email={session["email"]})
+            # return f'Logged in as {session["email"]}'
+      return 'You are not logged in'
+
+
+   
+   @app.route('/reader-library/<string:id>')
+   def reader_library(id):
+      with connection.cursor() as cur:
+         # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books where reader = 4')
+         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us ON bk.reader = us.user_id WHERE us.email = %s", [id[2:-2]])
          rows = cur.fetchall()
-         return render_template('reader.html', datas=rows)
-   
-   
+         # return render_template('reader.html', datas=rows)
+         return render_template('reader-library.html', datas=rows)
+         # return id
+         # return id[2:-2]
+
+   @app.route('/show-chapter-<string:id>')
+   def reader_show_chapter(id):
+      try:
+         with connection.cursor() as cur:
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
+            cur.execute(sql, [id])
+            rows = cur.fetchall()
+            return render_template('reader-show-chapter.html', datas=rows)
+      except:
+         with connection.cursor() as cur:
+            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
+            cur.execute(sql, [id])
+            row = cur.fetchone()
+            return render_template('reader-no-chapter.html', data=row)
 
    @app.route('/book-unknown')
    def audiobook_page():

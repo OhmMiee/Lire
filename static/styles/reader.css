@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-    
+
     box-sizing: border-box;
     margin: 0;
 }
@@ -47,6 +47,55 @@ nav {
     width: auto;
 }
 
+#popUp {
+    position: absolute;
+    /* align-items: flex-end; */
+    left: 66.3%; ;
+    top: 80px;
+    visibility:hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+#popUp.active {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 212px;
+    height: 143px;
+    left: 81px;
+    top: 52px;
+    background: #2C2C2C;
+    border-radius: 16px 0px 16px 16px;
+}
+
+.list-container a {
+    color: #b3b3b3;
+    font-size: 24px;
+    margin: 0 20px;
+    transition: 0.3s ease-out;
+}
+
+.list-container a:hover {
+    color:#ffffff;
+    /* background-color: #FFFFFF; */
+}
+
+.list-container hr {
+    color: #CECECE;
+    font-size: 24px;
+    margin: 0 20px;
+}
+
+.list-container i {
+    margin-right: 10px;
+}
 
 
 .reader button {

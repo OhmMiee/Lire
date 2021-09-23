@@ -198,6 +198,11 @@ label {
 
     font-size: 24px;
 }
+
+.ButtonChapter {
+    display: flex;
+}
+
 .ButtonChapter button{
 
     width: 68px;

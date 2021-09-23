@@ -148,7 +148,7 @@ label {
     height: 550px;
     background: #2C2C2C;
     width: 879px;
-    position: fixed;
+    position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
