@@ -75,7 +75,9 @@ with connection:
          return render_template('audiobook-info.html', data = row)
          # return row[0]
       # return id
-
+   @app.route('/audiobook-player')
+   def audiobook_player():
+          return render_template('audiobook-player.html')
 
    # sign up  
    @app.route('/reader-sign-up', methods=['GET', 'POST'])
