@@ -220,9 +220,16 @@ with connection:
    # <---------------------------- ADMIN ------------------------------------->
 
    # sign in page
-   @app.route('/admin')
+   @app.route('/admin', methods=['GET', 'POST'])
    def admin_page():
-      
+      if request.method == 'POST': 
+         session['email'] = request.form['email']
+         # email = request.form['email']
+         password = request.form['pass']
+         auth.sign_in_with_email_and_password(session['email'], password)
+         
+         return 'yes'
+         # return redirect('admin-homepage')
       return render_template('admin.html')
 
    # admin homepage
