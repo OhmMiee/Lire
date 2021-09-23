@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>book-unknown</title>
-    <link rel="stylesheet" href="/static/styles/reder-delete-chapter.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{{ data[1] }}</title>
+    <link rel="stylesheet" href="/static/styles/reader-delete-book.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -17,7 +19,7 @@
         <div class="nav-container">
             <nav>
                 <div class="logo">
-                    <a href="/" aria-label="Back to Homepage">
+                    <a href="{{ url_for('reader_homepage') }}" aria-label="Back to Homepage">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" class="logo-svg">
                             <path class="cls-1"
                                 d="M30,0.518H214.3a30,30,0,0,1,30,30V1970.93a30,30,0,0,1-30,30H30a30,30,0,0,1-30-30V30.518A30,30,0,0,1,30,.518Z" />
@@ -42,6 +44,9 @@
                         </svg>
                     </a>
                 </div>
+
+
+
                 <div class="list" onclick="">
                     <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -58,77 +63,83 @@
 
             </nav>
         </div>
+
         <div class="back">
-                    <a href="/"> back </a>
-                </div>
+            <script>
+                document.write('<a href="' + document.referrer + '">Go Back</a>');
+            </script>
+        </div>
 
         <!-- upload -->
 
-        <div class="book-upload-container">
+        <div class="book-delete-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="https://www.adobe.com/express/discover/ideas/media_1e0050318770e4a770caf5515f8120a3ea48c7c07.png?width=2000&format=webply&optimize=medium"
-                        alt="">
+                    <img src="/static/uploads/{{ data[3] }}" alt="">
                 </div>
                 <div class="right-side">
-                    <div class="title-author">
+                    <div class="top">
                         <div class="book-title">
-                            <h1>unknown</h1>
+                            <h1>{{ data[1] }}</h1>
                         </div>
-                        <div class="book-author">
-                            <h2>author</h2>
-                        </div>
-                        <div class="boxchapter">
-                            <h1>chapter |  3</h1>
-                        </div>
-                    </div>
-
-                    <div class="button">
-                        <div class="read-button">
+                        <div class="delete-button">
                             <button type="button">
                                 Delete <i class="fas fa-minus-circle"></i>
                             </button><br>
                         </div>
-                        
+                    </div><br>
+
+
+                    <div class="book-author">
+                        <h2>{{ data[2] }}</h2>
+                    </div><br>
+
+                    <div class="book-description">
+                        <p>{{ data[4] }}</p>
+                    </div><br>
+                    <div class="chapter">
+                        <a>chapter</a>
+                    </div><br>
+
+                    <div class="ButtonChapter">
+                        <a href=""> <button>NO</button></a>
                     </div>
-                   
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- popUp -->
-    <div class="popUp" id="popUp">
-        <div class="content">
-            <div class="close-btn" onclick="toggle()">
-                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M23.1406 11.3333L18.5002 15.9737L13.8597 11.3333L11.3335 13.8595L15.9739 18.4999L11.3335 23.1403L13.8597 25.6666L18.5002 21.0262L23.1406 25.6666L25.6668 23.1403L21.0264 18.4999L25.6668 13.8595L23.1406 11.3333ZM18.5002 0.583252C8.59225 0.583252 0.583496 8.592 0.583496 18.4999C0.583496 28.4078 8.59225 36.4166 18.5002 36.4166C28.4081 36.4166 36.4168 28.4078 36.4168 18.4999C36.4168 8.592 28.4081 0.583252 18.5002 0.583252ZM18.5002 32.8333C10.5989 32.8333 4.16683 26.4012 4.16683 18.4999C4.16683 10.5987 10.5989 4.16659 18.5002 4.16659C26.4014 4.16659 32.8335 10.5987 32.8335 18.4999C32.8335 26.4012 26.4014 32.8333 18.5002 32.8333Z"
-                        fill="#F2F2F2" />
-                </svg>
-            </div>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <div class="input-field">
-                    <input type="file" accept=".wav" name="inputfile" id="inputfile" required class="inputfile">
-                    <label for="inputfile">Select audio file from your device</label><br><br>
-                    <button type="submit">submit</button>
+        <!-- popUp -->
+        <div class="popUp" id="popUp">
+            <div class="content">
+                <div class="close-btn" onclick="toggle()">
+                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M23.1406 11.3333L18.5002 15.9737L13.8597 11.3333L11.3335 13.8595L15.9739 18.4999L11.3335 23.1403L13.8597 25.6666L18.5002 21.0262L23.1406 25.6666L25.6668 23.1403L21.0264 18.4999L25.6668 13.8595L23.1406 11.3333ZM18.5002 0.583252C8.59225 0.583252 0.583496 8.592 0.583496 18.4999C0.583496 28.4078 8.59225 36.4166 18.5002 36.4166C28.4081 36.4166 36.4168 28.4078 36.4168 18.4999C36.4168 8.592 28.4081 0.583252 18.5002 0.583252ZM18.5002 32.8333C10.5989 32.8333 4.16683 26.4012 4.16683 18.4999C4.16683 10.5987 10.5989 4.16659 18.5002 4.16659C26.4014 4.16659 32.8335 10.5987 32.8335 18.4999C32.8335 26.4012 26.4014 32.8333 18.5002 32.8333Z"
+                            fill="#F2F2F2" />
+                    </svg>
                 </div>
-            </form>
-            <!-- <div class="test">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="input-field">
+                        <input type="file" accept=".wav" name="inputfile" id="inputfile" required class="inputfile">
+                        <label for="inputfile">Select audio file from your device</label><br><br>
+                        <button type="submit">submit</button>
+                    </div>
+                </form>
+                <!-- <div class="test">
                 <p style="color: black;">{{ transcript }}</p>
             </div> -->
+            </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        function toggle() {
-            var blur = document.getElementById('blur')
-            blur.classList.toggle('active')
-            var popUp = document.getElementById('popUp')
-            popUp.classList.toggle('active')
-        }
-    </script>
-    
+        <script type="text/javascript">
+            function toggle() {
+                var blur = document.getElementById('blur')
+                blur.classList.toggle('active')
+                var popUp = document.getElementById('popUp')
+                popUp.classList.toggle('active')
+            }
+        </script>
+
 
 </body>
 

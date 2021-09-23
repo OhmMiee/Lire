@@ -19,7 +19,7 @@
         <div class="nav-container">
             <nav>
                 <div class="logo">
-                    <a href="/" aria-label="Back to Homepage">
+                    <a href="{{ url_for('reader_homepage') }}" aria-label="Back to Homepage">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" class="logo-svg">
                             <path class="cls-1"
                                 d="M30,0.518H214.3a30,30,0,0,1,30,30V1970.93a30,30,0,0,1-30,30H30a30,30,0,0,1-30-30V30.518A30,30,0,0,1,30,.518Z" />
@@ -45,7 +45,7 @@
                     </a>
                 </div>
 
-                
+
 
                 <div class="list" onclick="">
                     <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,16 +65,17 @@
         </div>
 
         <div class="back">
-                    <a href="/"> back </a>
-                </div>
+            <script>
+                document.write('<a href="' + document.referrer + '">Go Back</a>');
+            </script>
+        </div>
 
         <!-- upload -->
 
         <div class="book-upload-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="/static/uploads/{{ datas[0][3] }}"
-                        alt="">
+                    <img src="/static/uploads/{{ datas[0][3] }}" alt="">
                 </div>
                 <div class="right-side">
                     <div class="top">
@@ -100,7 +101,7 @@
                     </div><br>
                     <div class="ButtonChapter">
                         {% for row in datas %}
-                        <button>{{ row[7] }}</button>
+                        <a href="add-chapter/{{ row[6] }}"> <button>{{ row[7] }}</button></a>
                         {% endfor %}
                     </div>
                 </div>
