@@ -228,8 +228,8 @@ with connection:
          password = request.form['pass']
          auth.sign_in_with_email_and_password(session['email'], password)
          
-         return 'yes'
-         # return redirect('admin-homepage')
+         
+         return redirect('admin-homepage')
       return render_template('admin.html')
 
    # admin homepage
