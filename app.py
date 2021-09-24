@@ -143,20 +143,44 @@ with connection:
          # return id[2:-2]
 
    # Re
-   @app.route('/show-chapter-<string:id>')
-   def reader_show_chapter(id):
+   @app.route('/show-chapter-<string:id>-<string:email>')
+   def reader_show_chapter(id, email):
       try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, bk.reader FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, bk.reader, us.user_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us On bk.reader = us.user_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
-            return render_template('reader-show-chapter.html', datas=rows)
+            return render_template('reader-show-chapter.html', datas=rows, email=email)
       except:
          with connection.cursor() as cur:
             sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
             cur.execute(sql, [id])
             row = cur.fetchone()
-            return render_template('reader-no-chapter.html', data=row)
+            return render_template('reader-no-chapter.html', data=row, email=email)
+
+
+   @app.route('/reserve-book-<string:reader>-<string:id>')
+   def reserve_book(reader, id):
+      with connection.cursor() as cur:
+         sql = 'SELECT user_id FROM users WHERE email = %s'
+         cur.execute(sql, reader)
+         user = cur.fetchone()
+         # return render_template('test.html', data=user)
+
+      with connection.cursor() as cur:
+         sql = "update books set reader = %s where book_id = %s"
+         cur.execute(sql, (user, id))
+         connection.commit()
+         return redirect(url_for('reader_homepage'))
+
+   
+   @app.route('/delete-book-<string:id>')
+   def delete_book(id):
+      with connection.cursor() as cur:
+         sql = "update books set reader = 0 where book_id = %s"
+         cur.execute(sql, id)
+         connection.commit()
+         return redirect(url_for('reader_homepage'))
 
    @app.route('/add-chapter/<string:id>')
    def reader_add_chapter(id):
@@ -167,11 +191,11 @@ with connection:
             row = cur.fetchone()
             return render_template('reader-add-chapter.html', row=row)
 
-   @app.route('/delete-book-<string:id>')
+   @app.route('/reserved-book-<string:id>')
    def reader_delete_book(id):
       try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON bk.reader = us.user_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
             return render_template('reader-delete-book.html', datas=rows)
@@ -222,16 +246,16 @@ with connection:
                similarity = cosine_similarity(origin, google)
             with connection.cursor() as cur:
                sql = "update chapter set similarity = %s where chapter_id = %s"
-               cur.execute(sql, (similarity, id))
+               cur.execute(sql, (similarity[0][0], id))
                connection.commit()
                if similarity >=0.85:
                   filename = secure_filename(file.filename)
                   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                  return render_template('reader-file-passed.html')
+                  return render_template('reader-file-passed.html', similarity=similarity[0][0])
                   # return "yes" + similarity
                else:
                   # return "No"
-                  return render_template('reader-file-failed.html')
+                  return render_template('reader-file-failed.html', similarity=similarity[0][0])
 
                # return transcript + " " + id
          

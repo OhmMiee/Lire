@@ -208,18 +208,23 @@ label {
     border-radius: 11px;
 
 }
-.delete-button button {
+
+.delete-button {
+    width: 190px;
+    height: 58px;
+}
+
+.delete-button a.button {
     margin: auto 0;
     background: rgb(240, 133, 133);
     border-radius: 31px;
     margin-bottom: 24px;
-    width: 190px;
-    height: 58px;
 
     font-size: 2rem;
-    padding: 5px 3px;
+    padding: 5px 15px;
     border: none;
-
+    text-decoration: none;
+    color: #000000;
 }
 
 .top {
