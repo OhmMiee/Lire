@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
+from gensim.utils import file_or_filename
 from werkzeug.utils import secure_filename
 import os
 import pymysql.cursors
@@ -109,11 +110,6 @@ with connection:
          # email = request.form['email']
          password = request.form['pass']
          auth.sign_in_with_email_and_password(session['email'], password)
-         # with connection.cursor() as cur:
-         #    cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
-         #    # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
-         #    rows = cur.fetchall()
-         #    return render_template('reader.html', datas=rows, email=email)
          return redirect('reader-homepage')
       return render_template('reader-sign-in.html')
 
@@ -146,28 +142,78 @@ with connection:
          # return id
          # return id[2:-2]
 
-   @app.route('/show-chapter-<string:id>')
-   def reader_show_chapter(id):
+   # Re
+   @app.route('/show-chapter-<string:id>-<string:email>')
+   def reader_show_chapter(id, email):
       try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, bk.reader, us.user_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us On bk.reader = us.user_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
-            return render_template('reader-show-chapter.html', datas=rows)
+            return render_template('reader-show-chapter.html', datas=rows, email=email)
       except:
          with connection.cursor() as cur:
             sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
             cur.execute(sql, [id])
             row = cur.fetchone()
-            return render_template('reader-no-chapter.html', data=row)
+            return render_template('reader-no-chapter.html', data=row, email=email)
 
-   @app.route('/book-unknown')
-   def audiobook_page():
-      return render_template('book-upload.html')
+
+   @app.route('/reserve-book-<string:reader>-<string:id>')
+   def reserve_book(reader, id):
+      with connection.cursor() as cur:
+         sql = 'SELECT user_id FROM users WHERE email = %s'
+         cur.execute(sql, reader)
+         user = cur.fetchone()
+         # return render_template('test.html', data=user)
+
+      with connection.cursor() as cur:
+         sql = "update books set reader = %s where book_id = %s"
+         cur.execute(sql, (user, id))
+         connection.commit()
+         return redirect(url_for('reader_homepage'))
+
+   
+   @app.route('/delete-book-<string:id>')
+   def delete_book(id):
+      with connection.cursor() as cur:
+         sql = "update books set reader = 0 where book_id = %s"
+         cur.execute(sql, id)
+         connection.commit()
+         return redirect(url_for('reader_homepage'))
+
+   @app.route('/add-chapter/<string:id>')
+   def reader_add_chapter(id):
+      with connection.cursor() as cur:
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
+            # sql = 'SELECT book_id, book_title, author, book_img, category_id FROM books WHERE book_id = %s'
+            cur.execute(sql, [id])
+            row = cur.fetchone()
+            return render_template('reader-add-chapter.html', row=row)
+
+   @app.route('/reserved-book-<string:id>')
+   def reader_delete_book(id):
+      try:
+         with connection.cursor() as cur:
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON bk.reader = us.user_id WHERE bk.book_id = %s'
+            cur.execute(sql, [id])
+            rows = cur.fetchall()
+            return render_template('reader-delete-book.html', datas=rows)
+      except:
+         with connection.cursor() as cur:
+            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
+            cur.execute(sql, [id])
+            row = cur.fetchone()
+            return render_template('reader-delete-book-no-chapter.html', data=row)
+
+
+   # @app.route('/book-unknown')
+   # def audiobook_page():
+   #    return render_template('book-upload.html')
 
    # upload & speech to text 
-   @app.route('/upload', methods=['POST'])
-   def upload():
+   @app.route('/upload-<string:id>', methods=['POST'])
+   def upload(id):
 
       transcript = ""
       
@@ -188,31 +234,68 @@ with connection:
                data = recognizer.record(source)
             transcript = recognizer.recognize_google(data, language="th-TH", key=None)
             with connection.cursor() as cur:
-               sql = "update chapter set content = %s where chapter_id = 0"
-               cur.execute(sql, transcript)
+               sql = "update chapter set google_value = %s where chapter_id = %s"
+               cur.execute(sql, (transcript, id))
                connection.commit()
-      # return render_template("book-upload.html", transcript=transcript)
-      return redirect('process')
+            with connection.cursor() as cur:
+               sql = "select content, google_value from chapter where chapter_id = %s"
+               cur.execute(sql, id)
+               twoDatas = cur.fetchall()
+               origin = sentence_vectorizer(twoDatas[0][0])
+               google = sentence_vectorizer(twoDatas[0][1])
+               similarity = cosine_similarity(origin, google)
+            with connection.cursor() as cur:
+               sql = "update chapter set similarity = %s where chapter_id = %s"
+               cur.execute(sql, (similarity[0][0], id))
+               connection.commit()
+               if similarity >=0.85:
+                  filename = secure_filename(file.filename)
+                  file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                  return render_template('reader-file-passed.html', similarity=similarity[0][0])
+                  # return "yes" + similarity
+               else:
+                  # return "No"
+                  return render_template('reader-file-failed.html', similarity=similarity[0][0])
+
+               # return transcript + " " + id
+         
+      # return redirect(url_for('compare', file=file))
       # return transcript
 
    # comparison similarity
-   @app.route('/process')
+   @app.route('/process', methods=['POST'])
    def compare():
-      with connection.cursor() as cur:
-         sql = "select content, google_value from chapter"
-         cur.execute(sql)
-         twoDatas = cur.fetchall()
-         origin = sentence_vectorizer(twoDatas[0][0])
-         google = sentence_vectorizer(twoDatas[0][1])
-         similarity = cosine_similarity(origin, google)
-         if similarity >=0.85:
-            return render_template('passed.html')
-         else:
-            return render_template('failed.html')   
-         return render_template('process.html', data = similarity)
+      if request.method == "POST":
+         file = request.get('file')
+         # return file
+         if file and allowed_file(file.filename):
+               filename = secure_filename(file.filename)
+               file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+               return "yes"
+            #print('upload_image filename: ' + filename)
+            # flash('Image successfully uploaded and displayed below')
+            # return render_template('admin-add-book.html', filename=filename)
+      # with connection.cursor() as cur:
+      #    sql = "select content, google_value from chapter"
+      #    cur.execute(sql)
+      #    twoDatas = cur.fetchall()
+      #    origin = sentence_vectorizer(twoDatas[0][0])
+      #    google = sentence_vectorizer(twoDatas[0][1])
+      #    similarity = cosine_similarity(origin, google)
+      #    if similarity >=0.85:
+      #       with connection.cursor() as cur:
+      #          sql = "INSERT"
+      #       return render_template('passed.html')
+      #    else:
+      #       return render_template('failed.html')   
+      #    return render_template('process.html', data = similarity)
 
       
-         
+   @app.route('/logout')
+   def logout():
+    # remove the email from the session if it's there
+      session.pop('email', None)
+      return redirect('/')
 
    # <---------------------------- SIGNIN ------------------------------------->
 
@@ -261,7 +344,7 @@ with connection:
    # add centent page (Chapter)
    @app.route('/summary/insert_content/<string:id>')
    def add_content_page(id):
-      return render_template('admin-add-content.html')
+      return render_template('admin-add-content.html', id=id)
 
    # add book page
    @app.route('/insert-book')
@@ -362,19 +445,20 @@ with connection:
    
 
    # add content (Chapter) process
-   @app.route('/summary/add-content', methods=['POST'])
-   def addContent():
+   @app.route('/add-content/<string:id>', methods=['POST'])
+   def addContent(id):
       if request.method == "POST":
          chapter = request.form['chapter']
          content = request.form['content']
          with connection.cursor() as cursor:
-            sql = "insert into `chapter` (`chapter`, `content`) values(%s,%s)"
-            cursor.execute(sql, (chapter, content))
+            sql = "insert into `chapter` (`chapter`, `content`, `book_id`) values(%s,%s,%s)"
+            cursor.execute(sql, (chapter, content, id))
             connection.commit()
-            return chapter + ' ' + content
+            return redirect(url_for('admin_homepage'))
 
    # <---------------------------- ADMIN ------------------------------------->
 
+   
 
    if __name__ == "__main__":
       app.run(debug=True)

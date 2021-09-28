@@ -48,7 +48,6 @@ nav {
 }
 
 
-
 .reader button {
     font-size: 1.5rem;
     color: #FFFFFF;
@@ -60,7 +59,7 @@ nav {
 
 .headline-container {
     text-align: center;
-    margin-top: 100px;
+    margin: 100px 0;
 }
 
 .headline-container h1 {

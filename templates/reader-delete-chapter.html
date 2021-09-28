@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ datas[0][1] }}</title>
-    <link rel="stylesheet" href="/static/styles/add-chapter.css">
+    <title>book-unknown</title>
+    <link rel="stylesheet" href="/static/styles/reder-delete-chapter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -44,9 +44,6 @@
                         </svg>
                     </a>
                 </div>
-
-
-
                 <div class="list" onclick="">
                     <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -63,10 +60,9 @@
 
             </nav>
         </div>
-
         <div class="back">
             <script>
-                document.write('<a href="/reader-homepage">Go Back</a>');
+                document.write('<a href="' + document.referrer + '">Go Back</a>');
             </script>
         </div>
 
@@ -75,70 +71,66 @@
         <div class="book-upload-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="/static/uploads/{{ datas[0][3] }}" alt="">
+                    <img src="" alt="">
                 </div>
                 <div class="right-side">
-                    <div class="top">
+                    <div class="title-author">
                         <div class="book-title">
-                            <h1>{{ datas[0][1] }}</h1>
+                            <h1>unknown</h1>
                         </div>
-                        <div class="reserve-button">
-                            <a href="reserve-book-{{ email[2:-2] }}-{{ datas[0][0] }}" class="button">
-                                Reserve<i class="fas fa-plus-circle"></i><br>
-                            </a>
+                        <div class="book-author">
+                            <h2>author</h2>
                         </div>
-                    </div><br>
-
-                    <div class="book-author">
-                        <h2>{{ datas[0][2] }}</h2>
+                        <div class="boxchapter">
+                            <h1>chapter | 3</h1>
+                        </div>
                     </div>
 
-                    <div class="book-description">
-                        <p>{{ datas[0][4] }}</p>
-                    </div><br>
-                    <div class="chapter">
-                        <a>chapter</a>
-                    </div><br>
-                    <div class="ButtonChapter">
-                        {% for row in datas %}
-                        <a href="add-chapter/{{ row[6] }}"> <button>{{ row[7] }}</button></a>
-                        {% endfor %}
+                    <div class="button">
+                        <div class="read-button">
+                            <button type="button">
+                                Delete <i class="fas fa-minus-circle"></i>
+                            </button><br>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- popUp -->
-        <div class="popUp" id="popUp">
-            <div class="content">
-                <div class="close-btn" onclick="toggle()">
-                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M23.1406 11.3333L18.5002 15.9737L13.8597 11.3333L11.3335 13.8595L15.9739 18.4999L11.3335 23.1403L13.8597 25.6666L18.5002 21.0262L23.1406 25.6666L25.6668 23.1403L21.0264 18.4999L25.6668 13.8595L23.1406 11.3333ZM18.5002 0.583252C8.59225 0.583252 0.583496 8.592 0.583496 18.4999C0.583496 28.4078 8.59225 36.4166 18.5002 36.4166C28.4081 36.4166 36.4168 28.4078 36.4168 18.4999C36.4168 8.592 28.4081 0.583252 18.5002 0.583252ZM18.5002 32.8333C10.5989 32.8333 4.16683 26.4012 4.16683 18.4999C4.16683 10.5987 10.5989 4.16659 18.5002 4.16659C26.4014 4.16659 32.8335 10.5987 32.8335 18.4999C32.8335 26.4012 26.4014 32.8333 18.5002 32.8333Z"
-                            fill="#F2F2F2" />
-                    </svg>
+    <!-- popUp -->
+    <div class="popUp" id="popUp">
+        <div class="content">
+            <div class="close-btn" onclick="toggle()">
+                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M23.1406 11.3333L18.5002 15.9737L13.8597 11.3333L11.3335 13.8595L15.9739 18.4999L11.3335 23.1403L13.8597 25.6666L18.5002 21.0262L23.1406 25.6666L25.6668 23.1403L21.0264 18.4999L25.6668 13.8595L23.1406 11.3333ZM18.5002 0.583252C8.59225 0.583252 0.583496 8.592 0.583496 18.4999C0.583496 28.4078 8.59225 36.4166 18.5002 36.4166C28.4081 36.4166 36.4168 28.4078 36.4168 18.4999C36.4168 8.592 28.4081 0.583252 18.5002 0.583252ZM18.5002 32.8333C10.5989 32.8333 4.16683 26.4012 4.16683 18.4999C4.16683 10.5987 10.5989 4.16659 18.5002 4.16659C26.4014 4.16659 32.8335 10.5987 32.8335 18.4999C32.8335 26.4012 26.4014 32.8333 18.5002 32.8333Z"
+                        fill="#F2F2F2" />
+                </svg>
+            </div>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="input-field">
+                    <input type="file" accept=".wav" name="inputfile" id="inputfile" required class="inputfile">
+                    <label for="inputfile">Select audio file from your device</label><br><br>
+                    <button type="submit">submit</button>
                 </div>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    <div class="input-field">
-                        <input type="file" accept=".wav" name="inputfile" id="inputfile" required class="inputfile">
-                        <label for="inputfile">Select audio file from your device</label><br><br>
-                        <button type="submit">submit</button>
-                    </div>
-                </form>
-                <!-- <div class="test">
+            </form>
+            <!-- <div class="test">
                 <p style="color: black;">{{ transcript }}</p>
             </div> -->
-            </div>
         </div>
+    </div>
 
-        <script type="text/javascript">
-            function toggle() {
-                var blur = document.getElementById('blur')
-                blur.classList.toggle('active')
-                var popUp = document.getElementById('popUp')
-                popUp.classList.toggle('active')
-            }
-        </script>
+    <script type="text/javascript">
+        function toggle() {
+            var blur = document.getElementById('blur')
+            blur.classList.toggle('active')
+            var popUp = document.getElementById('popUp')
+            popUp.classList.toggle('active')
+        }
+    </script>
 
 
 </body>

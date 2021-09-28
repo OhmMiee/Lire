@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>book-unknown</title>
     <link rel="stylesheet" href="/static/styles/show-chapter.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -17,7 +19,7 @@
         <div class="nav-container">
             <nav>
                 <div class="logo">
-                    <a href="/" aria-label="Back to Homepage">
+                    <a href="{{ url_for('reader_homepage') }}" aria-label="Back to Homepage">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" class="logo-svg">
                             <path class="cls-1"
                                 d="M30,0.518H214.3a30,30,0,0,1,30,30V1970.93a30,30,0,0,1-30,30H30a30,30,0,0,1-30-30V30.518A30,30,0,0,1,30,.518Z" />
@@ -59,43 +61,48 @@
             </nav>
         </div>
         <div class="back">
-                    <a href="/"> back </a>
-                </div>
+            
+                <a href="/reader-homepage">Go Back</a>
+            
+        </div>
 
         <!-- upload -->
 
         <div class="book-upload-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="https://www.adobe.com/express/discover/ideas/media_1e0050318770e4a770caf5515f8120a3ea48c7c07.png?width=2000&format=webply&optimize=medium"
-                        alt="">
+                    <img src="/static/uploads/{{ row[3] }}" alt="">
                 </div>
                 <div class="right-side">
-                    <div class="title-author">
-                        <div class="book-title">
-                            <h1>unknown</h1>
+                    <div class="top">
+                        <div class="title-author">
+                            <div class="book-title">
+                                <h1>{{ row[1] }}</h1>
+                            </div>
+                            <div class="book-author">
+                                <h2>{{ row[2] }}</h2>
+                            </div>
                         </div>
-                        <div class="book-author">
-                            <h2>author</h2>
+                        <div class="button">
+                            <div class="read-button">
+                                <button type="button">
+                                    <i class="fas fa-eye"></i>Read
+                                </button><br>
+                            </div>
+                            <div class="upload-button">
+                                <button type="button" onclick="toggle()">
+                                    <i class="fas fa-file-upload"></i>Upload
+                                </button>
+                            </div>
                         </div>
-                        <div class="boxchapter">
-                            <h1>chapter |  3</h1>
-                        </div>
+                    </div>
+                        
+                    <div class="boxchapter">
+                        <h1>chapter | {{ row[6] }}</h1>
                     </div>
 
-                    <div class="button">
-                        <div class="read-button">
-                            <button type="button">
-                                <i class="fas fa-eye"></i>Read
-                            </button><br>
-                        </div>
-                        <div class="upload-button">
-                            <button type="button" onclick="toggle()">
-                                <i class="fas fa-file-upload"></i>Upload
-                            </button>
-                        </div>
-                    </div>
-                   
+
+
                 </div>
             </div>
         </div>
@@ -111,7 +118,7 @@
                         fill="#F2F2F2" />
                 </svg>
             </div>
-            <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="/upload-{{ row[5] }}" method="post" enctype="multipart/form-data">
                 <div class="input-field">
                     <input type="file" accept=".wav" name="inputfile" id="inputfile" required class="inputfile">
                     <label for="inputfile">Select audio file from your device</label><br><br>
@@ -132,7 +139,7 @@
             popUp.classList.toggle('active')
         }
     </script>
-    
+
 
 </body>
 
