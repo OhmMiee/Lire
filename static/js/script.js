@@ -17,6 +17,18 @@ let audiobookIndex = 2
 // initially load song info DOM
 loadAudiobook(audiobooks[audiobookIndex])
 
+
+function myFunc(vars) {
+    return vars
+}
+
+function test_func(data) {
+    // JSON.parse( decodeURIComponent( data) );
+    // console.log(data);
+    return data
+}
+
+
 // update song details
 function loadAudiobook(audiobook) {
     title.innerText = audiobook

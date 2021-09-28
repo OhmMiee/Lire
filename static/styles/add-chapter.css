@@ -212,8 +212,8 @@ label {
     background: rgba(255, 232, 172, 0.99);
     border-radius: 31px;
     margin-bottom: 24px;
-    width: 190px;
-    height: 58px;
+    /* width: 190px; */
+    /* height: 58px; */
     text-decoration: none;
     color: #000;
     font-size: 2rem;
@@ -224,4 +224,8 @@ label {
 .top {
     display: flex;
     justify-content: space-between;
+}
+
+.book-title {
+    width: 70%;
 }

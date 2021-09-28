@@ -11,16 +11,19 @@
     <header>
 
         <div class="container">
-
-            <nav>
+            <nav class="d-flex justify-content-between">
                 <div class="logo mt-4 mb-4">
                     <img src="/static/images/icon/logo.svg" alt="" width="50px">
-
+                </div>
+                <div class="sign-out d-flex align-items-center">
+                    <a href="logout">Sign Out</a>
                 </div>
             </nav>
+
             {% for message in get_flashed_messages() %}
                 <div class="alert alert-success">{{ message }}</div>
             {% endfor %}
+
             <div class="d-flex justify-content-between">
                 <h1>All Books</h1>
                 <div class="button ">
