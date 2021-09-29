@@ -60,11 +60,13 @@
 
             </nav>
         </div>
+        
         <div class="back">
-            
-                <a href="/reader-homepage">Go Back</a>
-            
+            <script>
+                document.write('<a href="' + document.referrer + '">Go Back</a>');
+            </script>
         </div>
+
 
         <!-- upload -->
 
@@ -85,9 +87,9 @@
                         </div>
                         <div class="button">
                             <div class="read-button">
-                                <button type="button">
-                                    <i class="fas fa-eye"></i>Read
-                                </button><br>
+                                <a href="read/{{ row[5] }}" class="button">
+                                    <i class="fas fa-eye"></i>Read<br>
+                                </a>
                             </div>
                             <div class="upload-button">
                                 <button type="button" onclick="toggle()">
@@ -96,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                        
+
                     <div class="boxchapter">
                         <h1>chapter | {{ row[6] }}</h1>
                     </div>

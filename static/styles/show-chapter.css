@@ -107,9 +107,23 @@ nav {
 }
 
 
-/* .button {
-    background-color: slateblue;
-} */
+.read-button {
+    text-align: center;
+    margin-bottom: 24px;
+    width: 190px;
+    height: 58px;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 2rem;
+    padding: 10px 30px;
+}
+
+.read-button a {
+    color: #000000;
+    text-decoration: none;
+}
 
 .button button{
     margin-bottom: 24px;
