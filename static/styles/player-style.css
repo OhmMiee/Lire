@@ -27,6 +27,11 @@ body {
     position: relative;
     z-index: 10;
 }
+.back a{
+    
+    color: #020202;
+    
+}
 
 .img-container {
     position: relative;
