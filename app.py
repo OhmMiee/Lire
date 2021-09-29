@@ -127,7 +127,7 @@ with connection:
    def reader_homepage():
       if 'email' in session:
          with connection.cursor() as cur:
-            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email, category_id FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
             # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
             rows = cur.fetchall()
             return render_template('reader.html', datas=rows, email={session["email"]})
@@ -210,6 +210,10 @@ with connection:
             row = cur.fetchone()
             return render_template('reader-delete-book-no-chapter.html', data=row)
 
+
+   # @app.route('/read/<string:id>')
+   # def read(id):
+   #    return 
 
    # upload & speech to text & comparison similarity
    @app.route('/upload-<string:id>', methods=['POST'])

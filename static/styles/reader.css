@@ -162,7 +162,6 @@ nav {
 }
 
 .book-detail {
-    
     position: relative;
     margin: auto;
     width: 181.25px;
@@ -183,11 +182,11 @@ h4 {
     color: #737373;
 }
 
-.book-title {
+/* .book-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
-}
+} */
 
 .sign-up-sing-in {
     margin: 110px 0;

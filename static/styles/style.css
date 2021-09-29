@@ -132,11 +132,11 @@ h4 {
     color: #737373;
 }
 
-.book-title {
+/* .title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
 .section-title {
     margin: 110px 0;

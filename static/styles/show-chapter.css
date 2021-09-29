@@ -191,6 +191,27 @@ label {
     transition: 0.5s;
 }
 
+#readPopUp {
+    height: 550px;
+    background: #2C2C2C;
+    width: 879px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 22px;
+    padding: 50px;
+    visibility:hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#readPopUp.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
 
 .popUp .close-btn {
     position: relative;
