@@ -64,7 +64,7 @@
         const cover = document.querySelector('#cover')
 
         // audiobook titles
-        const book_title = ['{% for i in datas %}{{ i[1] }}','{% endfor %}']
+        const book_title = ['{% for i in datas %}Chapter {{ i[1] }}','{% endfor %}']
         const book_audio = ['{% for i in datas %}{{ i[3] }}','{% endfor %}']
         const book_cover = ['{% for i in datas %}{{ i[4] }}','{% endfor %}']
 

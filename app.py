@@ -127,7 +127,7 @@ with connection:
    def reader_homepage():
       if 'email' in session:
          with connection.cursor() as cur:
-            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email, category_id FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email, category_id, us.f_name, us.l_name FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
             # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
             rows = cur.fetchall()
             return render_template('reader.html', datas=rows, email={session["email"]})
@@ -250,7 +250,7 @@ with connection:
             audioFile = sr.AudioFile(file)
             with audioFile as source:
                data = recognizer.record(source)
-            transcript = recognizer.recognize_google(data, language="th-TH", key=None)
+            transcript = recognizer.recognize_goocgle(data, language="th-TH", key=None)
             with connection.cursor() as cur:
                sql = "update chapter set google_value = %s where chapter_id = %s"
                cur.execute(sql, (transcript, id))
