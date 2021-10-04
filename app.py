@@ -127,7 +127,7 @@ with connection:
    def reader_homepage():
       if 'email' in session:
          with connection.cursor() as cur:
-            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email, category_id FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
             # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
             rows = cur.fetchall()
             return render_template('reader.html', datas=rows, email={session["email"]})
@@ -189,11 +189,20 @@ with connection:
    @app.route('/add-chapter/<string:id>')
    def reader_add_chapter(id):
       with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
+         sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
             # sql = 'SELECT book_id, book_title, author, book_img, category_id FROM books WHERE book_id = %s'
-            cur.execute(sql, [id])
-            row = cur.fetchone()
-            return render_template('reader-add-chapter.html', row=row)
+         cur.execute(sql, [id])
+         row = cur.fetchone()
+         return render_template('reader-add-chapter.html', row=row)
+
+   @app.route('/add-chapter/read/<string:id>')
+   def read(id):
+      with connection.cursor() as cur:
+         sql = 'SELECT bk.book_id, bk.book_title, bk.author, cp.chapter_id, cp.chapter, cp.content FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
+            # sql = 'SELECT book_id, book_title, author, book_img, category_id FROM books WHERE book_id = %s'
+         cur.execute(sql, [id])
+         row = cur.fetchone()
+      return render_template('reader-show-content.html', data=row)
 
    @app.route('/reserved-book-<string:id>')
    def reader_delete_book(id):

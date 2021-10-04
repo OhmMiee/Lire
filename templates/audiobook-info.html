@@ -5,15 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>book-unknown</title>
+    <title>{{ data.1 }}</title>
     <link rel="stylesheet" href="/static/styles/audiobook-info.css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
-    <div class="wrapper" id="blur">
+    <div class="wrapper">
         <!-- nav -->
         <div class="nav-container">
             <nav>
@@ -74,30 +73,6 @@
             </div>
         </div>
     </div>
-
-    <!-- popUp -->
-    <div class="popUp" id="popUp">
-        <div class="content">
-            <div class="close-btn" onclick="toggle()">
-                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M23.1406 11.3333L18.5002 15.9737L13.8597 11.3333L11.3335 13.8595L15.9739 18.4999L11.3335 23.1403L13.8597 25.6666L18.5002 21.0262L23.1406 25.6666L25.6668 23.1403L21.0264 18.4999L25.6668 13.8595L23.1406 11.3333ZM18.5002 0.583252C8.59225 0.583252 0.583496 8.592 0.583496 18.4999C0.583496 28.4078 8.59225 36.4166 18.5002 36.4166C28.4081 36.4166 36.4168 28.4078 36.4168 18.4999C36.4168 8.592 28.4081 0.583252 18.5002 0.583252ZM18.5002 32.8333C10.5989 32.8333 4.16683 26.4012 4.16683 18.4999C4.16683 10.5987 10.5989 4.16659 18.5002 4.16659C26.4014 4.16659 32.8335 10.5987 32.8335 18.4999C32.8335 26.4012 26.4014 32.8333 18.5002 32.8333Z"
-                        fill="#F2F2F2" />
-                </svg>
-            </div>
-            
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        function toggle() {
-            var blur = document.getElementById('blur')
-            blur.classList.toggle('active')
-            var popUp = document.getElementById('popUp')
-            popUp.classList.toggle('active')
-        }
-    </script>
-
 </body>
 
 </html>

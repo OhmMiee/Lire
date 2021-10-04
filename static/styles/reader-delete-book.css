@@ -185,15 +185,11 @@ label {
     text-transform: uppercase;
     border: none;
 }
-.back a{
-    
-    
-    color: #ffffff;
-    
-    
 
-    
+.back a{
+    color: #ffffff; 
 }
+
 .chapter{
 
     font-size: 24px;

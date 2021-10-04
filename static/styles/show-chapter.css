@@ -107,9 +107,23 @@ nav {
 }
 
 
-/* .button {
-    background-color: slateblue;
-} */
+.read-button {
+    text-align: center;
+    margin-bottom: 24px;
+    width: 190px;
+    height: 58px;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 2rem;
+    padding: 10px 30px;
+}
+
+.read-button a {
+    color: #000000;
+    text-decoration: none;
+}
 
 .button button{
     margin-bottom: 24px;
@@ -191,6 +205,27 @@ label {
     transition: 0.5s;
 }
 
+#readPopUp {
+    height: 550px;
+    background: #2C2C2C;
+    width: 879px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 22px;
+    padding: 50px;
+    visibility:hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#readPopUp.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
 
 .popUp .close-btn {
     position: relative;

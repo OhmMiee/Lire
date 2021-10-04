@@ -47,6 +47,11 @@ nav {
     width: auto;
 }
 
+.back a{
+    text-decoration: underline;
+    color: #ffffff; 
+}
+
 
 .reader button {
     font-size: 1.5rem;
@@ -137,11 +142,11 @@ h4 {
     color: #737373;
 }
 
-.book-title {
+/* .title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
-}
+} */
 
 
 .section-title {

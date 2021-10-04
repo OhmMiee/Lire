@@ -37,8 +37,7 @@ h1, p, a{
 }
 
 .sign-up-container, .sign-in-container {
-    
-    transform: translateY(40%);
+    transform: translateY(30%);
     margin-left: auto;
     margin-right: auto;
     width: 700px;

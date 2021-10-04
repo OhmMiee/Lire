@@ -66,9 +66,10 @@
 
         <div class="back">
             <script>
-                document.write('<a href="/reader-homepage">Go Back</a>');
+                document.write('<a href="' + document.referrer + '">Go Back</a>');
             </script>
         </div>
+
 
         <!-- upload -->
 
@@ -101,7 +102,7 @@
                     </div><br>
                     <div class="ButtonChapter">
                         {% for row in datas %}
-                        <a href="add-chapter/{{ row[6] }}"> <button>{{ row[7] }}</button></a>
+                        <a href="#"> <button>{{ row[7] }}</button></a>
                         {% endfor %}
                     </div>
                 </div>
