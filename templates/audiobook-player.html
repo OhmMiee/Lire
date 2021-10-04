@@ -32,13 +32,13 @@
 
 
         <div class="navigation">
-            <button id="prev" class="action-btn">
+            <button id="prev" class="action-btn" aria-label="previous">
                 <i class="fas fa-backward"></i>
             </button>
-            <button id="play" class="action-btn action-btn-big">
+            <button id="play" class="action-btn action-btn-big" aria-label="play">
                 <i class="fas fa-play"></i>
             </button>
-            <button id="next" class="action-btn">
+            <button id="next" class="action-btn" aria-label="next">
                 <i class="fas fa-forward"></i>
             </button>
 
@@ -101,7 +101,8 @@
             audiobookIndex--
 
             if (audiobookIndex < 0) {
-                audiobookIndex = book_audio.length - 1
+                // audiobookIndex = book_audio.length - 1
+                audiobookIndex = book_audio.length - 2
             }
 
             loadAudiobook(book_title[audiobookIndex], book_audio[audiobookIndex], book_cover[audiobookIndex])
@@ -112,7 +113,7 @@
         function nextAudiobook() {
             audiobookIndex++
 
-            if (audiobookIndex > book_audio.length - 1) {
+            if (audiobookIndex > book_audio.length - 2) {
                 audiobookIndex = 0
             }
 
