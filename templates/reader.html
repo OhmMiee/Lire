@@ -160,7 +160,7 @@
             <div class="books">
                 {% for row in datas %}
                 {% if row.4 == 1 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">
@@ -200,7 +200,7 @@
             <div class="books">
                 {% for row in datas %}
                 {% if row.4 == 2 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">
@@ -240,7 +240,7 @@
             <div class="books">
                 {% for row in datas %}
                 {% if row.4 == 3 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">

@@ -207,18 +207,60 @@ label {
     border-radius: 11px;
 
 }
-.reserve-button a.button {
-    margin: auto 0;
-    background: rgba(255, 232, 172, 0.99);
-    border-radius: 31px;
+
+/* .reserve-button {
+    width: auto;
+} */
+
+a.button {
+    display: inline-block;
+    justify-content: space-between;
+    background: #ffffff;
+    /* background: rgba(255, 232, 172, 0.99); */
     margin-bottom: 24px;
-    /* width: 190px; */
-    /* height: 58px; */
     text-decoration: none;
     color: #000;
     font-size: 2rem;
     padding: 5px 15px;
     border: none;
+    transition: .3s ease-in-out ;
+}
+
+
+
+a.chapter {
+    border-radius: 31px 0 0 31px;
+    width: 80%;
+}
+
+a.reserve {
+    border-radius: 0 31px 31px 0;
+    text-align: end;
+    width: 19%;
+}
+
+a.button:hover {
+    background: rgba(129, 129, 129, 0.99);
+    
+}
+
+.button {
+    display: inline-block;
+    justify-content: space-between;
+    background: #585858;
+    /* background: rgba(255, 232, 172, 0.99); */
+    margin-bottom: 24px;
+    text-decoration: none;
+    color: #A7A7A7;
+    font-size: 2rem;
+    padding: 5px 15px;
+    border: none;
+    transition: .3s ease-in-out ;
+}
+
+.chapter {
+    border-radius: 31px;
+    width: 100%;
 }
 
 .top {
