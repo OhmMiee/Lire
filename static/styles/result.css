@@ -50,7 +50,65 @@ nav {
   color: rgb(234, 240, 238);
   padding: 0px 278px;
 } */
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #e1e2e2;
+  -webkit-box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  -webkit-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
+}
+.progress-bar span{
+ color: #000;
+ font-size: 110%;
 
+}
+.progress {
+  height: 46px;
+  width: 400px;
+  margin:auto;
+  overflow: hidden;
+  background-color: #696969;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+}
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #e1e2e2;
+  -webkit-box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  -webkit-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
+}
+.progress-bar span{
+ color: #000;
+ font-size: 110%;
 
- 
+}
+.progress {
+  height: 46px;
+  width: 400px;
+  margin:auto;
+  overflow: hidden;
+  background-color: #696969;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+}
+
 
