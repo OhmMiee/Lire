@@ -111,13 +111,16 @@ with connection:
    # sign up  
    @app.route('/reader-sign-in', methods=['GET', 'POST'])
    def signInPage():
-      if request.method == 'POST':
-         session['email'] = request.form['email']
-         # email = request.form['email']
-         password = request.form['pass']
-         auth.sign_in_with_email_and_password(session['email'], password)
-         return redirect('reader-homepage')
-      return render_template('reader-sign-in.html')
+      try:
+         if request.method == 'POST':
+            session['email'] = request.form['email']
+            # email = request.form['email']
+            password = request.form['pass']
+            auth.sign_in_with_email_and_password(session['email'], password)
+            return redirect('reader-homepage')
+         return render_template('reader-sign-in.html')
+      except:
+         return redirect(request.url)
 
    
    # <---------------------------- NO SIGNIN ------------------------------------->
@@ -128,12 +131,14 @@ with connection:
    def reader_homepage():
       if 'email' in session:
          with connection.cursor() as cur:
-            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk WHERE bk.reader IS NULL")
-            # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.reader FROM books bk JOIN Chapter cp ON cp.book_id = bk.book_id WHERE cp.reader IS NULL GROUP BY book_id")
+            # cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk WHERE bk.reader IS NULL")
+               # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
             rows = cur.fetchall()
             return render_template('reader.html', datas=rows, email={session["email"]})
-            # return f'Logged in as {session["email"]}'
+               # return f'Logged in as {session["email"]}'
       return 'You are not logged in'
+    
 
 
    
@@ -150,18 +155,19 @@ with connection:
    # Re
    @app.route('/show-chapter-<string:id>-<string:email>')
    def reader_show_chapter(id, email):
-      try:
+      # try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, bk.reader, us.user_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us On bk.reader = us.user_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, cp.reader FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
-            return render_template('reader-show-chapter.html', datas=rows, email=email)
-      except:
-         with connection.cursor() as cur:
-            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
-            cur.execute(sql, [id])
-            row = cur.fetchone()
-            return render_template('reader-no-chapter.html', data=row, email=email)
+            # return rows[0]
+            return render_template('reader-show-chapter copy.html', datas=rows, email=email)
+      # except:
+      #    with connection.cursor() as cur:
+      #       sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
+      #       cur.execute(sql, [id])
+      #       row = cur.fetchone()
+      #       return render_template('reader-no-chapter.html', data=row, email=email)
 
 
    @app.route('/reserve-book-<string:reader>-<string:id>')
@@ -251,7 +257,8 @@ with connection:
             audioFile = sr.AudioFile(file)
             with audioFile as source:
                data = recognizer.record(source)
-            transcript = recognizer.recognize_google(data, language="th-TH", key=None)
+            
+               transcript = recognizer.recognize_google(data, language="th-TH", key=None)
             with connection.cursor() as cur:
                sql = "update chapter set google_value = %s where chapter_id = %s"
                cur.execute(sql, (transcript, id))
@@ -304,14 +311,17 @@ with connection:
    # sign in page
    @app.route('/admin', methods=['GET', 'POST'])
    def admin_page():
-      if request.method == 'POST': 
-         session['email'] = request.form['email']
-         # email = request.form['email']
-         password = request.form['pass']
-         auth.sign_in_with_email_and_password(session['email'], password)
-         
-         
-         return redirect('admin-homepage')
+      try:
+         if request.method == 'POST': 
+            session['email'] = request.form['email']
+            # email = request.form['email']
+            password = request.form['pass']
+            auth.sign_in_with_email_and_password(session['email'], password)
+            
+            
+            return redirect('admin-homepage')
+      except:
+         return redirect(request.url)
       return render_template('admin.html')
 
    # admin homepage
