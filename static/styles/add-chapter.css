@@ -52,7 +52,7 @@ nav {
 .book-container {
     margin-top: 150px;
     width: 1060px;
-    height: 508px;
+    /* height: 508px; */
     background: #000000;
     box-shadow: 0px 4px 41px rgba(255, 255, 255, 0.09);
     border-radius: 30px;
@@ -77,9 +77,8 @@ nav {
 }
 
 .right-side {
-    margin: auto 0;
+    margin: 45px 0 30px 0;
     width: 540px;
-    height: 400px;
     /* background-color: red; */
 }
 
@@ -185,12 +184,9 @@ label {
     text-transform: uppercase;
     border: none;
 }
+
 .back a{
     color: #ffffff;
-}
-.chapter{
-
-    font-size: 24px;
 }
 
 .ButtonChapter {
@@ -258,9 +254,10 @@ a.button:hover {
     transition: .3s ease-in-out ;
 }
 
-.chapter {
+.chapter{
     border-radius: 31px;
     width: 100%;
+    font-size: 24px;
 }
 
 .top {

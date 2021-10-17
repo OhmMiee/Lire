@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>{{ datas[0][1] }}</title>
     <link rel="stylesheet" href="/static/styles/add-chapter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -71,55 +71,53 @@
         </div>
 
 
-        <!-- upload -->
 
-        <div class="book-upload-container">
-            <div class="book-container">
-                <div class="book-cover">
-                    <img src="/static/uploads/{{ datas[0][3] }}" alt="">
+
+        <div class="book-container">
+            <div class="book-cover">
+                <img src="/static/uploads/{{ datas[0][3] }}" alt="">
+            </div>
+            <div class="right-side">
+                <div class="top">
+                    <div class="book-title">
+                        <h1>{{ datas[0][1] }}</h1>
+                    </div>
+                </div><br>
+
+                <div class="book-author">
+                    <h2>{{ datas[0][2] }}</h2>
                 </div>
-                <div class="right-side">
-                    <div class="top">
-                        <div class="book-title">
-                            <h1>{{ datas[0][1] }}</h1>
-                        </div>
-                    </div><br>
 
-                    <div class="book-author">
-                        <h2>{{ datas[0][2] }}</h2>
-                    </div>
+                <div class="book-description">
+                    <p>{{ datas[0][4] }}</p>
+                </div><br>
+                <div class="chapter">
+                    <u>Chapter</u>
+                </div><br>
 
-                    <div class="book-description">
-                        <p>{{ datas[0][4] }}</p>
-                    </div><br>
-                    <div class="chapter">
-                        <u>Chapter</u>
-                    </div><br>
-
-                    {% for row in datas %}
-                    <!-- if chppter do not reserve  -->
-                    {% if row[8] is not none %}
-                    {{ row[8] }}
-                    <div class="btn-group">
-                        <a href="" class="button chapter">
-                            <b>{{ row[7] }}</b>
-                        </a>
-                        <a href="" class="button reserve">
-                            <i class="fas fa-plus-circle"></i>
-                        </a>
-                    </div>
-
-                    <!-- if chppter reserved  -->
-                    {% else %}
-                    {{ row[8] }}
-                    <div class="btn-group">
-                        <div class="button chapter">
-                            <b>{{ row[7] }}</b>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
+                {% for row in datas %}
+                <!-- if chppter do not reserve  -->
+                {% if row[8] is none %}
+                {{ row[8] }}
+                <div class="btn-group">
+                    <a href="/add-chapter/read/{{ row[6] }}" class="button chapter">
+                        <b>{{ row[7] }}</b>
+                    </a>
+                    <a href="/reserve-chapter-{{ email }}-{{ row[6] }}" class="button reserve">
+                        <i class="fas fa-plus-circle"></i>
+                    </a>
                 </div>
+
+                <!-- if chppter reserved  -->
+                {% else %}
+                {{ row[8] }}
+                <div class="btn-group">
+                    <div class="button chapter">
+                        <b>{{ row[7] }}</b>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
 

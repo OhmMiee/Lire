@@ -1,4 +1,5 @@
 import json
+from re import U
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
 from gensim.utils import file_or_filename
@@ -62,7 +63,7 @@ with connection:
    def Home():
       with connection.cursor() as cur:
          # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader IS NOT NULL ')
-         cur.execute('SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.reader IS NOT NULL AND cp.audio_file IS NOT NULL GROUP BY book_id')
+         cur.execute('SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.reader IS NOT NULL AND cp.audio_file IS NOT NULL GROUP BY book_id')
          rows = cur.fetchall()
          return render_template('index.html', datas=rows)
             # return str(rows)
@@ -142,15 +143,13 @@ with connection:
 
 
    
-   @app.route('/reader-library/<string:id>')
-   def reader_library(id):
+   @app.route('/reader-library/<string:email>')
+   def reader_library(email):
       with connection.cursor() as cur:
          # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books where reader = 4')
-         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us ON bk.reader = us.user_id WHERE us.email = %s", [id[2:-2]])
+         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, cp.chapter_id, us.email FROM books bk JOIN chapter cp ON cp.book_id = bk.book_id JOIN users us ON cp.reader = us.user_id WHERE us.email = %s GROUP BY book_id", email)
          rows = cur.fetchall()
-         return render_template('reader-library.html', datas=rows)
-         # return id
-         # return id[2:-2]
+         return render_template('reader-library.html', datas=rows, email = email)
 
    # Re
    @app.route('/show-chapter-<string:id>-<string:email>')
@@ -170,19 +169,20 @@ with connection:
       #       return render_template('reader-no-chapter.html', data=row, email=email)
 
 
-   @app.route('/reserve-book-<string:reader>-<string:id>')
-   def reserve_book(reader, id):
+   @app.route('/reserve-chapter-<string:reader>-<string:id>')
+   def reserve_chapter(reader, id):
       with connection.cursor() as cur:
          sql = 'SELECT user_id FROM users WHERE email = %s'
          cur.execute(sql, reader)
          user = cur.fetchone()
          # return render_template('test.html', data=user)
 
-      with connection.cursor() as cur:
-         sql = "update books set reader = %s where book_id = %s"
-         cur.execute(sql, (user, id))
-         connection.commit()
-         return redirect(url_for('reader_homepage'))
+         with connection.cursor() as cur:
+            sql = "update chapter set reader = %s where chapter_id = %s"
+            cur.execute(sql, (user, id))
+            connection.commit()
+            return redirect(request.referrer)
+            
 
    
    @app.route('/delete-book-<string:id>')
