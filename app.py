@@ -160,7 +160,7 @@ with connection:
             cur.execute(sql, [id])
             rows = cur.fetchall()
             # return rows[0]
-            return render_template('reader-show-chapter copy.html', datas=rows, email=email)
+            return render_template('reader-show-chapter.html', datas=rows, email=email)
       # except:
       #    with connection.cursor() as cur:
       #       sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
