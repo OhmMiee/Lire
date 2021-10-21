@@ -80,6 +80,10 @@ nav {
     height: 400px;
     /* background-color: red; */
 }
+.book-title{
+    display: flex;
+    justify-content: space-between;
+}
 
 
 .book-title h1{
@@ -110,4 +114,44 @@ nav {
     border-radius: 16px;
     font-size: 2rem;
     padding: 5px 3px;
+}
+.chapter{
+    
+    
+    font-size: 2rem;
+    
+}
+.view{
+    
+    
+    text-align: end;
+    align-items: center;
+    
+}
+.view .vie{
+    padding: 10px 17px;
+
+    color: #FFFFFF;
+    margin-bottom: 4px;
+    width: 100px;
+    height: 50px;
+    background: #000000;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    
+}
+a.button{
+    background-color: #000000;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+    width: 107px;
+    height: 38px;
+    background: #000000;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding: 5px 38px;
+    text-decoration: none;
 }

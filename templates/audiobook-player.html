@@ -13,10 +13,7 @@
 </head>
 
 <body>
-    
-
     <div class="audiobook-container">
-
         <div class="audiobook-info">
             <h4 id="title">Title</h4>
             <div class="progress-container">
@@ -28,39 +25,29 @@
 
         <div class="img-container">
             <img src="" id="cover" alt="audiobook cover">
+
         </div>
-
-
-
+        
         <div class="navigation">
-            <button id="prev" class="action-btn">
+            
+            <button id="prev" class="action-btn" aria-label="previous">
                 <i class="fas fa-backward"></i>
             </button>
-            <button id="play" class="action-btn action-btn-big">
+            <button id="play" class="action-btn action-btn-big" aria-label="play">
                 <i class="fas fa-play"></i>
             </button>
-            <button id="next" class="action-btn">
+            <button id="next" class="action-btn" aria-label="next">
                 <i class="fas fa-forward"></i>
             </button>
-
         </div>
 
     </div>
-
     <div class="back">
         <script>
             document.write('<a href="/">Home Page</a>');
         </script>
     </div>
-    
-    
 
-
-    <div class="back">
-        <script>
-            document.write('<a href="/">Home Page</a>');
-        </script>
-    <!-- <script src="/static/js/script.js"></script> -->
     <script>
         const audiobookContainer = document.querySelector('.audiobook-container')
         const playBtn = document.querySelector('#play')
@@ -73,16 +60,15 @@
         const cover = document.querySelector('#cover')
 
         // audiobook titles
-
-        const book_title = '{{ datas[0][2] }}'
-        const book_audio = '{{ datas[0][3] }}'
-        const book_cover = '{{ datas[0][4] }}'
+        const book_title = ['{% for i in datas %}Chapter {{ i[1] }}','{% endfor %}']
+        const book_audio = ['{% for i in datas %}{{ i[3] }}','{% endfor %}']
+        const book_cover = ['{% for i in datas %}{{ i[4] }}','{% endfor %}']
 
         // keep track of audiobooks
-        // let audiobookIndex = 2
+        let audiobookIndex = 0
 
         // initially load song info DOM
-        loadAudiobook(book_title, book_audio, book_cover)
+        loadAudiobook(book_title[audiobookIndex], book_audio[audiobookIndex], book_cover[audiobookIndex])
 
         // update song details
         function loadAudiobook(book_title, book_audio, book_cover) {
@@ -111,10 +97,11 @@
             audiobookIndex--
 
             if (audiobookIndex < 0) {
-                audiobookIndex = audiobooks.length - 1
+                // audiobookIndex = book_audio.length - 1
+                audiobookIndex = book_audio.length - 2
             }
 
-            loadAudiobook(audiobooks[audiobookIndex])
+            loadAudiobook(book_title[audiobookIndex], book_audio[audiobookIndex], book_cover[audiobookIndex])
 
             playAudiobook()
         }
@@ -122,11 +109,11 @@
         function nextAudiobook() {
             audiobookIndex++
 
-            if (audiobookIndex > audiobooks.length - 1) {
+            if (audiobookIndex > book_audio.length - 2) {
                 audiobookIndex = 0
             }
 
-            loadAudiobook(audiobooks[audiobookIndex])
+            loadAudiobook(book_title[audiobookIndex], book_audio[audiobookIndex], book_cover[audiobookIndex])
 
             playAudiobook()
         }

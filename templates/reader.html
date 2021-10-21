@@ -55,6 +55,9 @@
                         </svg>
 
                     </div>
+                    <div class="name-of-user">
+                        {{ email }}
+                    </div>
                     <div class="list" ">
                         <svg onclick=" toggle()" width="54" height="54" viewBox="0 0 54 54" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -156,8 +159,8 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                {% if row.5 == 1 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                {% if row.4 == 1 %}
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">
@@ -196,8 +199,8 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                {% if row.5 == 2 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                {% if row.4 == 2 %}
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">
@@ -236,8 +239,8 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                {% if row.5 == 3 %}
-                <a href="audiobook-info/{{ row.0 }}" aria-label="book name's {{ row.1 }}">
+                {% if row.4 == 3 %}
+                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">
@@ -263,7 +266,7 @@
 
     <footer>
         <div class="wrapper">
-            <p style="color: aliceblue;">fsdkaghjjkasjgklasgjkl</p>
+            <p style="color: aliceblue;">Thanks</p>
         </div>
     </footer>
 </body>

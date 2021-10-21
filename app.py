@@ -61,7 +61,8 @@ with connection:
    @app.route('/')
    def Home():
       with connection.cursor() as cur:
-         cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader != 0')
+         # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader IS NOT NULL ')
+         cur.execute('SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.reader IS NOT NULL AND cp.audio_file IS NOT NULL GROUP BY book_id')
          rows = cur.fetchall()
          return render_template('index.html', datas=rows)
             # return str(rows)
@@ -79,7 +80,7 @@ with connection:
    @app.route('/audiobook-player-<string:id>')
    def audiobook_player(id):
       with connection.cursor() as cur:
-         sql = 'SELECT ct.chapter_id, ct.chapter, bk.book_title, ct.audio_file, bk.book_img FROM books bk JOIN chapter ct ON bk.book_id = ct.book_id WHERE ct.book_id = %s'
+         sql = 'SELECT cp.chapter_id, cp.chapter, bk.book_title, cp.audio_file, bk.book_img FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.book_id = %s AND cp.audio_file IS NOT NULL'
          cur.execute(sql, [id])
          rows = cur.fetchall()
          # data = {'title: ' + row[1], 'author: ' + row[2], 'cover: ' + row[3]}
@@ -110,13 +111,16 @@ with connection:
    # sign up  
    @app.route('/reader-sign-in', methods=['GET', 'POST'])
    def signInPage():
-      if request.method == 'POST':
-         session['email'] = request.form['email']
-         # email = request.form['email']
-         password = request.form['pass']
-         auth.sign_in_with_email_and_password(session['email'], password)
-         return redirect('reader-homepage')
-      return render_template('reader-sign-in.html')
+      try:
+         if request.method == 'POST':
+            session['email'] = request.form['email']
+            # email = request.form['email']
+            password = request.form['pass']
+            auth.sign_in_with_email_and_password(session['email'], password)
+            return redirect('reader-homepage')
+         return render_template('reader-sign-in.html')
+      except:
+         return redirect(request.url)
 
    
    # <---------------------------- NO SIGNIN ------------------------------------->
@@ -127,12 +131,14 @@ with connection:
    def reader_homepage():
       if 'email' in session:
          with connection.cursor() as cur:
-            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email, category_id FROM books bk INNER JOIN users us on bk.reader = us.user_id WHERE bk.reader = 0")
-            # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
+            cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.reader FROM books bk JOIN Chapter cp ON cp.book_id = bk.book_id WHERE cp.reader IS NULL GROUP BY book_id")
+            # cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk WHERE bk.reader IS NULL")
+               # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id , email inner from books where reader = 0 ')
             rows = cur.fetchall()
             return render_template('reader.html', datas=rows, email={session["email"]})
-            # return f'Logged in as {session["email"]}'
+               # return f'Logged in as {session["email"]}'
       return 'You are not logged in'
+    
 
 
    
@@ -149,18 +155,19 @@ with connection:
    # Re
    @app.route('/show-chapter-<string:id>-<string:email>')
    def reader_show_chapter(id, email):
-      try:
+      # try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, bk.reader, us.user_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us On bk.reader = us.user_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, cp.reader FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
-            return render_template('reader-show-chapter.html', datas=rows, email=email)
-      except:
-         with connection.cursor() as cur:
-            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
-            cur.execute(sql, [id])
-            row = cur.fetchone()
-            return render_template('reader-no-chapter.html', data=row, email=email)
+            # return rows[0]
+            return render_template('reader-show-chapter copy.html', datas=rows, email=email)
+      # except:
+      #    with connection.cursor() as cur:
+      #       sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
+      #       cur.execute(sql, [id])
+      #       row = cur.fetchone()
+      #       return render_template('reader-no-chapter.html', data=row, email=email)
 
 
    @app.route('/reserve-book-<string:reader>-<string:id>')
@@ -181,8 +188,8 @@ with connection:
    @app.route('/delete-book-<string:id>')
    def delete_book(id):
       with connection.cursor() as cur:
-         sql = "update books set reader = 0 where book_id = %s"
-         cur.execute(sql, id)
+         sql = "update books bk, chapter cp set bk.reader = NULL, cp.audio_file = NULL where bk.book_id = %s AND cp.book_id = %s"
+         cur.execute(sql, (id, id))
          connection.commit()
          return redirect(url_for('reader_homepage'))
 
@@ -250,7 +257,8 @@ with connection:
             audioFile = sr.AudioFile(file)
             with audioFile as source:
                data = recognizer.record(source)
-            transcript = recognizer.recognize_google(data, language="th-TH", key=None)
+            
+               transcript = recognizer.recognize_google(data, language="th-TH", key=None)
             with connection.cursor() as cur:
                sql = "update chapter set google_value = %s where chapter_id = %s"
                cur.execute(sql, (transcript, id))
@@ -303,14 +311,17 @@ with connection:
    # sign in page
    @app.route('/admin', methods=['GET', 'POST'])
    def admin_page():
-      if request.method == 'POST': 
-         session['email'] = request.form['email']
-         # email = request.form['email']
-         password = request.form['pass']
-         auth.sign_in_with_email_and_password(session['email'], password)
-         
-         
-         return redirect('admin-homepage')
+      try:
+         if request.method == 'POST': 
+            session['email'] = request.form['email']
+            # email = request.form['email']
+            password = request.form['pass']
+            auth.sign_in_with_email_and_password(session['email'], password)
+            
+            
+            return redirect('admin-homepage')
+      except:
+         return redirect(request.url)
       return render_template('admin.html')
 
    # admin homepage
@@ -376,10 +387,11 @@ with connection:
             return redirect(request.url)
         
          with connection.cursor() as cursor:
-            no_reader = 0
-            sql="insert into `books` (`book_title`, `author`, `reader`, `book_img`, `description` , `category_id`, `date`) values(%s,%s,%s,%s,%s,%s,%s)"
-            cursor.execute(sql,(title, author, no_reader, filename, description, category, now))
+            # no_reader = "NUll"
+            sql="insert into `books` (`book_title`, `author`, `book_img`, `description` , `category_id`, `date`) values(%s,%s,%s,%s,%s,%s)"
+            cursor.execute(sql,(title, author, filename, description, category, now))
             connection.commit()
+            cursor.close()
             flash("Add successful")
             return redirect('admin-homepage')
          # return redirect('insert-content')
