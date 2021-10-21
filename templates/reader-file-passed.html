@@ -53,8 +53,8 @@
                     <div class="container"> <br>
                     
                         <div class="progress">
-                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            <span class="sr-only">70% Complete</span>
+                          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: calc({{ similarity }}*100%)">
+                            <span class="sr-only">{{ similarity * 100 }}% Complete</span>
                             
                           </div>
                         </div>
