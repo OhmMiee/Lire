@@ -56,7 +56,9 @@
 
                     </div>
                     <div class="name-of-user">
-                        {{ email }}
+                        {% for i in email%}
+                        {{ i }}
+                        {% endfor%}
                     </div>
                     <div class="list" ">
                         <svg onclick=" toggle()" width="54" height="54" viewBox="0 0 54 54" fill="none"
@@ -82,7 +84,7 @@
                             </div>
                             <hr>
                             <div class="library">
-                                <a href="reader-library/{{ email }}"><i class="fas fa-book-reader"></i>Library</a>
+                                <a href="reader-library/{% for i in email%}{{ i }}{% endfor%}"><i class="fas fa-book-reader"></i>Library</a>
                             </div>
                             <hr>
                             <div class="sign-out">
@@ -121,7 +123,7 @@
             <!-- books -->
             <div class="books">
                 {% for row in datas %}
-                <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
+                <a href="show-chapter-{{ row.0 }}-{% for i in email %}{{ i }}{% endfor %}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
                         <div class="book-cover">

@@ -52,7 +52,7 @@ nav {
 .book-container {
     margin-top: 150px;
     width: 1060px;
-    height: 508px;
+    /* height: 508px; */
     background: #000000;
     box-shadow: 0px 4px 41px rgba(255, 255, 255, 0.09);
     border-radius: 30px;
@@ -77,9 +77,8 @@ nav {
 }
 
 .right-side {
-    margin: auto 0;
+    margin: 45px 0 30px 0;
     width: 540px;
-    height: 400px;
     /* background-color: red; */
 }
 
@@ -104,93 +103,9 @@ nav {
     padding: 5px 3px;
 }
 
-.inputfile {
-    /* visibility: hidden etc. wont work */
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
 
-.inputfile:focus + label {
-    /* keyboard navigation */
-    outline: 1px dotted #000;
-    outline: -webkit-focus-ring-color auto 5px;
-}
-
-.inputfile + label * {
-    pointer-events: none;
-  }
-
-label {
-    color: #000000;
-    font-size: 24px;
-    font-style: normal;
-    padding: .5rem 1rem;
-    background: #F2F2F2;
-    box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.15);
-    border-radius: 23px;
-}
-
-
-#popUp {
-    height: 550px;
-    background: #2C2C2C;
-    width: 879px;
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 22px;
-    padding: 50px;
-    visibility:hidden;
-    opacity: 0;
-    transition: 0.5s;
-}
-
-#popUp.active {
-    top: 50%;
-    visibility: visible;
-    opacity: 1;
-    transition: 0.5s;
-}
-
-
-.popUp .close-btn {
-    position: relative;
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-
-.input-field {
-    margin: 20% 0;
-    text-align: center;
-}
-
-.input-field button {
-    margin-top: 20px;
-    background: #000000;
-    border-radius: 11px;
-    color: #fff;
-    width: 151px;
-    height: 51px;
-    box-shadow: 0px 4px 23px 3px rgba(255, 255, 255, 0.09);
-    border-radius: 11px;
-    font-weight: 500;
-    font-size: 24px;
-    text-transform: uppercase;
-    border: none;
-}
 .back a{
     color: #ffffff;
-}
-.chapter{
-
-    font-size: 24px;
 }
 
 .ButtonChapter {
@@ -233,10 +148,11 @@ a.chapter {
     width: 80%;
 }
 
-a.reserve {
+
+a.reserve, .delete {
     border-radius: 0 31px 31px 0;
     text-align: end;
-    width: 19%;
+    width:19%;
 }
 
 a.button:hover {
@@ -258,9 +174,10 @@ a.button:hover {
     transition: .3s ease-in-out ;
 }
 
-.chapter {
+.chapter{
     border-radius: 31px;
     width: 100%;
+    font-size: 24px;
 }
 
 .top {

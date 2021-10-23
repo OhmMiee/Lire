@@ -1,6 +1,6 @@
 import json
+from re import U
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from datetime import datetime
 from gensim.utils import file_or_filename
 from scipy.sparse import data
 from werkzeug.utils import secure_filename
@@ -12,6 +12,8 @@ import speech_recognition as sr
 from pythainlp.word_vector import sentence_vectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from datetime import datetime
+import time
 # -------------------- Firebase Authentication ------------------- #
 
 import pyrebase
@@ -53,6 +55,30 @@ connection = pymysql.connect( host='localhost',
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Create class that acts as a countdown
+def countdown(h, m, s):
+ 
+    # Calculate the total number of seconds
+    total_seconds = h * 3600 + m * 60 + s
+ 
+    # While loop that checks if total_seconds reaches zero
+    # If not zero, decrement total time by one second
+    while total_seconds > 0:
+ 
+        # Timer represents time left on countdown
+        timer = datetime.timedelta(seconds = total_seconds)
+        
+        # Prints the time left on the timer
+        print(timer, end="\r")
+ 
+        # Delays the program one second
+        time.sleep(1)
+ 
+        # Reduces total time by one second
+        total_seconds -= 1
+ 
+    print("Bzzzt! The countdown is at zero seconds!")
+
 with connection:
 
    # <---------------------------- NO SIGNIN ------------------------------------->
@@ -62,7 +88,7 @@ with connection:
    def Home():
       with connection.cursor() as cur:
          # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img, category_id from books where reader IS NOT NULL ')
-         cur.execute('SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.reader IS NOT NULL AND cp.audio_file IS NOT NULL GROUP BY book_id')
+         cur.execute('SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.reader IS NOT NULL AND cp.audio_file IS NOT NULL GROUP BY book_id')
          rows = cur.fetchall()
          return render_template('index.html', datas=rows)
             # return str(rows)
@@ -142,15 +168,13 @@ with connection:
 
 
    
-   @app.route('/reader-library/<string:id>')
-   def reader_library(id):
+   @app.route('/reader-library/<string:email>')
+   def reader_library(email):
       with connection.cursor() as cur:
          # cur.execute('select book_id, book_title, author, date_format(time,"%i:%s") as Minutes, book_img from books where reader = 4')
-         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, us.email FROM books bk INNER JOIN users us ON bk.reader = us.user_id WHERE us.email = %s", [id[2:-2]])
+         cur.execute("SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, cp.chapter_id, us.email, cp.time_stamp FROM books bk JOIN chapter cp ON cp.book_id = bk.book_id JOIN users us ON cp.reader = us.user_id WHERE us.email = %s GROUP BY book_id", email)
          rows = cur.fetchall()
-         return render_template('reader-library.html', datas=rows)
-         # return id
-         # return id[2:-2]
+         return render_template('reader-library.html', datas=rows, email = email)
 
    # Re
    @app.route('/show-chapter-<string:id>-<string:email>')
@@ -161,7 +185,7 @@ with connection:
             cur.execute(sql, [id])
             rows = cur.fetchall()
             # return rows[0]
-            return render_template('reader-show-chapter copy.html', datas=rows, email=email)
+            return render_template('reader-show-chapter.html', datas=rows, email=email)
       # except:
       #    with connection.cursor() as cur:
       #       sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
@@ -170,39 +194,46 @@ with connection:
       #       return render_template('reader-no-chapter.html', data=row, email=email)
 
 
-   @app.route('/reserve-book-<string:reader>-<string:id>')
-   def reserve_book(reader, id):
+   @app.route('/reserve-chapter-<string:reader>-<string:id>')
+   def reserve_chapter(reader, id):
+
+      h = int(0)
+      m = int(0)
+      s = int(5)
+      date_now = datetime.now()
+
       with connection.cursor() as cur:
          sql = 'SELECT user_id FROM users WHERE email = %s'
          cur.execute(sql, reader)
          user = cur.fetchone()
          # return render_template('test.html', data=user)
-
-      with connection.cursor() as cur:
-         sql = "update books set reader = %s where book_id = %s"
-         cur.execute(sql, (user, id))
-         connection.commit()
-         return redirect(url_for('reader_homepage'))
+         with connection.cursor() as cur:
+            sql = "update chapter set reader = %s, time_stamp = %s where chapter_id = %s"
+            cur.execute(sql, (user, date_now, id))
+            connection.commit()
+            return redirect(request.referrer)
+      
+      countdown(int(h), int(m), int(s))
 
    
-   @app.route('/delete-book-<string:id>')
+   @app.route('/delete-chapter-<string:id>')
    def delete_book(id):
       with connection.cursor() as cur:
-         sql = "update books bk, chapter cp set bk.reader = NULL, cp.audio_file = NULL where bk.book_id = %s AND cp.book_id = %s"
-         cur.execute(sql, (id, id))
+         sql = "update chapter cp set cp.reader = NULL, cp.audio_file = NULL where cp.chapter_id = %s"
+         cur.execute(sql, id)
          connection.commit()
-         return redirect(url_for('reader_homepage'))
+         return redirect(request.referrer)
 
-   @app.route('/add-chapter/<string:id>')
+   @app.route('/chapter-detail/<string:id>')
    def reader_add_chapter(id):
       with connection.cursor() as cur:
          sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
             # sql = 'SELECT book_id, book_title, author, book_img, category_id FROM books WHERE book_id = %s'
          cur.execute(sql, [id])
          row = cur.fetchone()
-         return render_template('reader-add-chapter.html', row=row)
+         return render_template('reader-chapter-detail.html', row=row)
 
-   @app.route('/add-chapter/read/<string:id>')
+   @app.route('/chapter-detail/read/<string:id>')
    def read(id):
       with connection.cursor() as cur:
          sql = 'SELECT bk.book_id, bk.book_title, bk.author, cp.chapter_id, cp.chapter, cp.content FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.chapter_id = %s'
@@ -211,20 +242,16 @@ with connection:
          row = cur.fetchone()
       return render_template('reader-show-content.html', data=row)
 
-   @app.route('/reserved-book-<string:id>')
+   @app.route('/reserved-chapter-<string:id>')
    def reader_delete_book(id):
       try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON bk.reader = us.user_id WHERE bk.book_id = %s'
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON cp.reader = us.user_id WHERE bk.book_id = %s'
             cur.execute(sql, [id])
             rows = cur.fetchall()
-            return render_template('reader-delete-book.html', datas=rows)
+            return render_template('reader-show-chapter-1.html', datas=rows)
       except:
-         with connection.cursor() as cur:
-            sql = 'SELECT book_id, book_title, author, book_img, description, category_id FROM books WHERE book_id = %s'
-            cur.execute(sql, [id])
-            row = cur.fetchone()
-            return render_template('reader-delete-book-no-chapter.html', data=row)
+         return redirect('reader-homepage')
 
 
    # upload & speech to text & comparison similarity
