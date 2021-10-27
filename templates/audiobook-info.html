@@ -5,10 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ data.1 }}</title>
+    <title>{{ datas[0][1] }}</title>
     <link rel="stylesheet" href="/static/styles/audiobook-info.css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -48,44 +50,60 @@
         <div class="book-upload-container">
             <div class="book-container">
                 <div class="book-cover">
-                    <img src="/static/uploads/{{ data.3 }}" alt="book cover">
+                    <img src="/static/uploads/{{ datas[0][3] }}" alt="book cover">
                 </div>
                 <div class="right-side">
                     <div class="title-author">
 
-                        
+
                         <div class="book-title">
-                            <h1>{{ data.1 }}</h1> 
+                            <h1>{{ datas[0][1] }}</h1>
                             <div class="view">
-                                <div class="vie">
-                               <i class="fas fa-headphones-alt" ></i>11
-                            </div>
+                                <div class="views">
+                                    <p id="count">0</p>
+                                    <i class="fas fa-eye"></i>
+                                    <!-- <i class="fas fa-headphones-alt"></i> -->
+                                </div>
                             </div>
                         </div>
                         <div class="book-author">
-                            <h2>{{ data.2 }}</h2>
+                            <h2>{{ datas[0][2] }}</h2>
                         </div>
                     </div>
                     <div class="button">
                         <div class="read-button">
-                            <a href="/audiobook-player-{{ data.0 }}" aria-label=""><button type="button">
-                                <i class="fas fa-headphones-alt"></i>Listen
-                            </button><br>
-                            
+                            <a href="/audiobook-player-{{ datas[0][0] }}-{{ datas[0][7] }}" class="button" aria-label="">
+                                <i class="fas fa-headphones-alt"></i>Listen<br>
                             </a>
                         </div>
-                        <p>{{ data.4 }}</p>
+                        <p>{{ datas[0][4] }}</p>
                     </div><br>
                     <div class="chapter">
-                        <a href="" class="button">
-                            <b>1</b>
+                        {% for row in datas %}
+                        <a href="/audiobook-player-{{ row.0 }}-{{ row.7 }}" class="button">
+                            <b>{{ row.7 }}</b>
                         </a>
-                        
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- 'https://api.countapi.xyz/hit/lire/book-{{ id }}' <h1 id="count">0</h1> -->
+
+    <script>
+        const countEl = document.getElementById('count');
+
+        updateVisitCount();
+
+        function updateVisitCount() {
+            fetch('https://api.countapi.xyz/hit/lire/book-{{ id }}')
+                .then(res => res.json())
+                .then(res => {
+                    countEl.innerHTML = res.value;
+                })
+        }
+    </script>
 </body>
 
 </html>

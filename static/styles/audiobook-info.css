@@ -117,20 +117,16 @@ nav {
 }
 .chapter{
     
-    
     font-size: 2rem;
     
 }
-.view{
-    
-    
-    text-align: end;
-    align-items: center;
-    
-}
-.view .vie{
-    padding: 10px 17px;
 
+.view .views{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
     color: #FFFFFF;
     margin-bottom: 4px;
     width: 100px;
@@ -138,7 +134,7 @@ nav {
     background: #000000;
     border: 1px solid #F2F2F2;
     box-sizing: border-box;
-    border-radius: 16px;
+    border-radius: 30px;
     font-size: 1.5rem;
     
 }
@@ -149,7 +145,6 @@ a.button{
     width: 107px;
     height: 38px;
     background: #000000;
-    border: 1px solid #F2F2F2;
     box-sizing: border-box;
     border-radius: 16px;
     padding: 5px 38px;

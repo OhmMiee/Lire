@@ -97,20 +97,20 @@ with connection:
    @app.route('/audiobook-info/<string:id>')
    def audiobook_info(id):
       with connection.cursor() as cur:
-         sql = 'select book_id, book_title, author, book_img, description, category_id from books where book_id = %s'
+         sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE bk.book_id = %s AND cp.audio_file IS NOT NULL'
          cur.execute(sql, [id])
-         row = cur.fetchone()
-         return render_template('audiobook-info.html', data = row)
+         datas = cur.fetchall()
+         return render_template('audiobook-info.html', datas = datas, id = id)
          # return row[0]
       # return id
-   @app.route('/audiobook-player-<string:id>')
-   def audiobook_player(id):
+   @app.route('/audiobook-player-<string:id>-<string:cp>')
+   def audiobook_player(id, cp):
       with connection.cursor() as cur:
          sql = 'SELECT cp.chapter_id, cp.chapter, bk.book_title, cp.audio_file, bk.book_img FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id WHERE cp.book_id = %s AND cp.audio_file IS NOT NULL'
          cur.execute(sql, [id])
          rows = cur.fetchall()
          # data = {'title: ' + row[1], 'author: ' + row[2], 'cover: ' + row[3]}
-         return render_template('audiobook-player.html', datas = rows)
+         return render_template('audiobook-player.html', datas = rows, cp = cp)
 
    # sign up  
    @app.route('/reader-sign-up', methods=['GET', 'POST'])

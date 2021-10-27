@@ -65,7 +65,7 @@
         const book_cover = ['{% for i in datas %}{{ i[4] }}','{% endfor %}']
 
         // keep track of audiobooks
-        let audiobookIndex = 0
+        let audiobookIndex = {{cp}} - 1
 
         // initially load song info DOM
         loadAudiobook(book_title[audiobookIndex], book_audio[audiobookIndex], book_cover[audiobookIndex])
