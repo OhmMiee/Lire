@@ -122,16 +122,8 @@
                 
                 {% for row in datas %}
                 <!-- if chppter reserved  -->
-                {% if row[8] is none %}
-                <div class="btn-group">
-                    <div class="button chapter">
-                        <b>{{ row[7] }}</b>
-                    </div>
-                </div>
+                {% if row[9] is none %}
                 
-                {% else %}
-                <!-- if chppter do not reserve  -->
-            
                 <div class="btn-group">
                     <a href="/chapter-detail/{{ row[6] }}" class="button chapter">
                         <b>{{ row[7] }}</b>
@@ -140,7 +132,19 @@
                         <i class="fas fa-minus-circle"></i>
                     </a>
                 </div>
+                {% else %}
+                <!-- if chppter has audio  -->
+                <div class="btn-group">
+                    <a href="/chapter-detail/{{ row[6] }}" class="button chapter noAudio">
+                        <b>{{ row[7] }}</b>
+                    </a>
+                    <a href="/delete-chapter-{{ row[6] }}" class="button delete noAudio">
+                        <i class="fas fa-minus-circle"></i>
+                    </a>
+                </div>
+
                 {% endif %}
+
                 {% endfor %}
             </div>
         </div>

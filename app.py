@@ -242,16 +242,16 @@ with connection:
          row = cur.fetchone()
       return render_template('reader-show-content.html', data=row)
 
-   @app.route('/reserved-chapter-<string:id>')
-   def reader_delete_book(id):
-      try:
+   @app.route('/reserved-chapter-<string:id>-<string:email>')
+   def reader_delete_book(id, email):
+      # try:
          with connection.cursor() as cur:
-            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON cp.reader = us.user_id WHERE bk.book_id = %s'
-            cur.execute(sql, [id])
+            sql = 'SELECT bk.book_id, bk.book_title, bk.author, bk.book_img, bk.description, bk.category_id, cp.chapter_id, cp.chapter, us.email, cp.audio_file FROM books bk JOIN chapter cp ON bk.book_id = cp.book_id JOIN users us ON cp.reader = us.user_id WHERE bk.book_id = %s AND us.email = %s'
+            cur.execute(sql, [id, email])
             rows = cur.fetchall()
             return render_template('reader-show-chapter-1.html', datas=rows)
-      except:
-         return redirect('reader-homepage')
+      # except:
+      #    return redirect('reader-homepage')
 
 
    # upload & speech to text & comparison similarity

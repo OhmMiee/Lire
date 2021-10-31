@@ -75,6 +75,8 @@
     </div>
     <!-- line 1 -->
 
+    {% for row in datas %}
+        {% if row.4 == 1 %}
     <section>
         <div class="wrapper">
             <!-- fiction -->
@@ -83,8 +85,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                    {% if row.4 == 1 %}
                     <a href="audiobook-info/{{ row.0 }}" aria-label="audiobook name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
@@ -104,20 +104,22 @@
                             </div>
                         </div>
                     </a>
-                    {% endif %}
-                {% endfor %}
+                </div>
+                <!-- books -->
+                <!-- fiction -->
             </div>
-            <!-- books -->
-            <!-- fiction -->
+        </section>
+        
+        <!-- line 2 -->
+        <div class="wrapper">
+            <div class="line"></div>
         </div>
-    </section>
+        <!-- line 2 -->
+        {% endif %}
+    {% endfor %}
 
-    <!-- line 2 -->
-    <div class="wrapper">
-        <div class="line"></div>
-    </div>
-    <!-- line 2 -->
-
+    {% for row in datas %}
+        {% if row.4 == 2  %}
     <section>
         <div class="wrapper">
             <!-- inspire -->
@@ -126,8 +128,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                    {% if row.4 == 2  %}
                     <a href="audiobook-info/{{ row.0 }}" aria-label="audiobook name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
@@ -147,20 +147,22 @@
                             </div>
                         </div>
                     </a>
-                    {% endif %}
-                {% endfor %}
+                </div>
+                <!-- books -->
+                <!-- inspire -->
             </div>
-            <!-- books -->
-            <!-- inspire -->
+        </section>
+        
+        <!-- line 3 -->
+        <div class="wrapper">
+            <div class="line"></div>
         </div>
-    </section>
+        <!-- line 3 -->
+        {% endif %}
+    {% endfor %}
 
-    <!-- line 3 -->
-    <div class="wrapper">
-        <div class="line"></div>
-    </div>
-    <!-- line 3 -->
-
+    {% for row in datas %}
+        {% if row.4 == 3 %}
     <section>
         <div class="wrapper">
             <!-- general -->
@@ -169,8 +171,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                    {% if row.4 == 3 %}
                     <a href="audiobook-info/{{ row.0 }}" aria-label="audiobook name's {{ row.1 }}">
                         <div class="audiobooks">
                             <div class="audiobook-container"></div>
@@ -190,14 +190,14 @@
                             </div>
                         </div>
                     </a>
-                    {% endif %}
-                {% endfor %}
+                </div>
+                <!-- books -->
+                <!-- general -->
             </div>
-            <!-- books -->
-            <!-- general -->
-        </div>
-    </section>
-
+        </section>
+        {% endif %}
+    {% endfor %}
+        
     <footer>
         <div class="wrapper">
             <p style="color: aliceblue;">Thanks</p>

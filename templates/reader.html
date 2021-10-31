@@ -146,6 +146,8 @@
         </div>
     </section>
 
+    {% for row in datas %}
+    {% if row.4 == 1 %}
     <!-- line 1 -->
     <div class="wrapper">
         <div class="line"></div>
@@ -160,8 +162,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                {% if row.4 == 1 %}
                 <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
@@ -178,14 +178,16 @@
                         </div>
                     </div>
                 </a>
-                {% endif %}
-                {% endfor %}
             </div>
             <!-- books -->
             <!-- fiction -->
         </div>
     </section>
-
+    {% endif %}
+    {% endfor %}
+    
+    {% for row in datas %}
+    {% if row.4 == 2 %}
     <!-- line 2 -->
     <div class="wrapper">
         <div class="line"></div>
@@ -200,8 +202,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                {% if row.4 == 2 %}
                 <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
@@ -218,14 +218,16 @@
                         </div>
                     </div>
                 </a>
-                {% endif %}
-                {% endfor %}
             </div>
             <!-- books -->
             <!-- inspire -->
         </div>
     </section>
-
+    {% endif %}
+    {% endfor %}
+    
+    {% for row in datas %}
+    {% if row.4 == 3 %}
     <!-- line 3 -->
     <div class="wrapper">
         <div class="line"></div>
@@ -240,8 +242,6 @@
             </div>
             <!-- books -->
             <div class="books">
-                {% for row in datas %}
-                {% if row.4 == 3 %}
                 <a href="show-chapter-{{ row.0 }}-{{ email }}" aria-label="book name's {{ row.1 }}">
                     <div class="audiobooks">
                         <div class="audiobook-container"></div>
@@ -258,11 +258,11 @@
                         </div>
                     </div>
                 </a>
-                {% endif %}
-                {% endfor %}
             </div>
             <!-- books -->
             <!-- general -->
+            {% endif %}
+            {% endfor %}
         </div>
     </section>
 

@@ -70,14 +70,16 @@
                             <h2>{{ datas[0][2] }}</h2>
                         </div>
                     </div>
-                    <div class="button">
-                        <div class="read-button">
-                            <a href="/audiobook-player-{{ datas[0][0] }}-{{ datas[0][7] }}" class="button" aria-label="">
-                                <i class="fas fa-headphones-alt"></i>Listen<br>
-                            </a>
-                        </div>
+
+                    <div class="listen-button">
+                        <a href="/audiobook-player-{{ datas[0][0] }}-{{ datas[0][7] }}" class="button" aria-label="">
+                            <i class="fas fa-headphones-alt"></i> Listen<br>
+                        </a>
+                    </div>
+                    <div class="book-description">
                         <p>{{ datas[0][4] }}</p>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="chapter">
                         {% for row in datas %}
                         <a href="/audiobook-player-{{ row.0 }}-{{ row.7 }}" class="button">

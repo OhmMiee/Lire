@@ -180,6 +180,10 @@ a.button:hover {
     font-size: 24px;
 }
 
+a.noAudio {
+    background-color: #585858;
+}
+
 .top {
     display: flex;
     justify-content: space-between;
